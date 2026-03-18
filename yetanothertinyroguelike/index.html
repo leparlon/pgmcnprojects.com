@@ -1,11 +1,628 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>PGMCN Projects</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yet Another Tiny Roguelike — a minimal turn-based roguelike for Android. Explore dungeons, slay monsters, collect gold and survive as long as you can.">
+  <title>Yet Another Tiny Roguelike</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:     #1a1a1a;
+      --tile:   #252525;
+      --border: #333;
+      --gold:   #ffd900;
+      --red:    #e03030;
+      --green:  #26c44b;
+      --purple: #9966cc;
+      --blue:   #aabfff;
+      --text:   #dddddd;
+      --dim:    #777;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Press Start 2P', monospace;
+      overflow-x: hidden;
+    }
+
+    img { image-rendering: pixelated; display: block; }
+
+    /* ── BACKGROUND CANVAS ── */
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    /* ── SCANLINES ── */
+    .scanlines {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+      );
+    }
+
+    /* ── CONTENT ── */
+    .content { position: relative; z-index: 2; }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+
+    .app-icon {
+      width: 108px;
+      height: 108px;
+      border-radius: 20px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 6px rgba(255,217,0,.08),
+                  0 0 40px rgba(255,217,0,.35),
+                  0 0 90px rgba(255,217,0,.12);
+      margin-bottom: 32px;
+      animation: icon-pulse 3s ease-in-out infinite;
+    }
+    @keyframes icon-pulse {
+      0%,100% { box-shadow: 0 0 0 6px rgba(255,217,0,.08), 0 0 40px rgba(255,217,0,.35), 0 0 90px rgba(255,217,0,.12); }
+      50%      { box-shadow: 0 0 0 6px rgba(255,217,0,.15), 0 0 70px rgba(255,217,0,.60), 0 0 130px rgba(255,217,0,.22); }
+    }
+
+    .hero-title {
+      font-size: clamp(13px, 3.2vw, 26px);
+      line-height: 1.7;
+      color: var(--gold);
+      text-shadow: 0 0 22px rgba(255,217,0,.55), 2px 2px 0 #000;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .hero-sub {
+      font-size: clamp(6px, 1.4vw, 9px);
+      color: var(--dim);
+      letter-spacing: 4px;
+      margin-bottom: 48px;
+    }
+
+    /* ── DUNGEON PREVIEW ── */
+    .dungeon-wrap { margin-bottom: 44px; }
+
+    #dungeon-canvas {
+      border: 2px solid #383838;
+      border-radius: 4px;
+      box-shadow: 0 0 50px rgba(0,0,0,.8), 0 0 20px rgba(255,217,0,.06);
+      max-width: 100%;
+      height: auto;
+    }
+
+    .dungeon-label {
+      font-size: 6px;
+      color: #484848;
+      margin-top: 8px;
+      letter-spacing: 3px;
+      text-align: center;
+    }
+
+    /* ── MONSTERS ROW ── */
+    .monsters-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .m-sprite {
+      width: 52px; height: 52px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .m-sprite:nth-child(1) { filter: drop-shadow(0 0 8px var(--green));  animation-delay: 0s;   }
+    .m-sprite:nth-child(2) { filter: drop-shadow(0 0 8px var(--purple)); animation-delay:.4s;  }
+    .m-sprite:nth-child(3) { filter: drop-shadow(0 0 8px #ccc);          animation-delay:.8s;  }
+    .m-sprite:nth-child(4) { filter: drop-shadow(0 0 8px var(--green));  animation-delay:1.2s; }
+    .m-sprite:nth-child(5) { filter: drop-shadow(0 0 8px var(--blue));   animation-delay:1.6s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-9px); }
+    }
+
+    /* ── PLAY BUTTON ── */
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--gold);
+      color: #111;
+      text-decoration: none;
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(8px, 1.6vw, 11px);
+      padding: 18px 32px;
+      border-radius: 4px;
+      box-shadow: 0 5px 0 #8a6e00, 0 0 35px rgba(255,217,0,.25);
+      transition: transform .1s, box-shadow .1s;
+      letter-spacing: 1px;
+      line-height: 1.6;
+    }
+    .play-btn:hover  { transform: translateY(-3px); box-shadow: 0 8px 0 #8a6e00, 0 0 55px rgba(255,217,0,.4); }
+    .play-btn:active { transform: translateY(2px);  box-shadow: 0 2px 0 #8a6e00; }
+    .play-btn img    { width: 28px; height: 28px; border-radius: 6px; }
+
+    /* ══════════════════════════════
+       FEATURES
+    ══════════════════════════════ */
+    .features {
+      padding: 90px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(9px, 2vw, 13px);
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 52px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 16px rgba(255,217,0,.4);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--tile);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px 20px;
+      text-align: center;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(255,217,0,.1);
+    }
+    .card-icon {
+      width: 44px; height: 44px;
+      margin: 0 auto 18px;
+    }
+    .card h3 {
+      font-size: 8px;
+      color: var(--gold);
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+    .card p {
+      font-size: 6px;
+      color: var(--dim);
+      line-height: 2.4;
+    }
+
+    /* ══════════════════════════════
+       SCREENSHOTS
+    ══════════════════════════════ */
+    .screenshots {
+      padding: 60px 0 80px;
+    }
+    .screenshots .section-title { padding: 0 24px; }
+
+    .shot-track {
+      display: flex;
+      gap: 16px;
+      padding: 12px 24px 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .shot-track::-webkit-scrollbar       { height: 4px; }
+    .shot-track::-webkit-scrollbar-track { background: transparent; }
+    .shot-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .shot-track img {
+      height: 380px;
+      width: auto;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      transition: border-color .2s, transform .2s;
+    }
+    .shot-track img:hover {
+      border-color: var(--gold);
+      transform: scale(1.02);
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 40px 20px 52px;
+      border-top: 1px solid var(--border);
+    }
+    footer a {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 7px;
+      letter-spacing: 2px;
+      transition: color .2s;
+    }
+    footer a:hover { color: var(--gold); }
+    footer .copyright {
+      font-size: 5px;
+      color: #3a3a3a;
+      margin-top: 16px;
+      letter-spacing: 1px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Yet Another Tiny Roguelike</h2>
-  <p>A minimal roguelike game for mobile.</p>
-  <a href="privacy.html">Privacy Policy</a>
+
+<canvas id="bg-canvas"></canvas>
+<div class="scanlines"></div>
+
+<div class="content">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <img class="app-icon" src="assets/icon_512.png" alt="Yet Another Tiny Roguelike icon">
+
+    <h1 class="hero-title">YET ANOTHER<br>TINY ROGUELIKE</h1>
+    <p class="hero-sub">MINIMAL &middot; TURN-BASED &middot; ANDROID</p>
+
+    <div class="dungeon-wrap">
+      <canvas id="dungeon-canvas" width="252" height="342"></canvas>
+      <p class="dungeon-label">LIVE PREVIEW</p>
+    </div>
+
+    <div class="monsters-row">
+      <img class="m-sprite" src="sprites/monster_slime.png"    alt="Slime">
+      <img class="m-sprite" src="sprites/monster_bat.png"      alt="Bat">
+      <img class="m-sprite" src="sprites/monster_skeleton.png" alt="Skeleton">
+      <img class="m-sprite" src="sprites/monster_ogre.png"     alt="Ogre">
+      <img class="m-sprite" src="sprites/monster_ghost.png"    alt="Ghost">
+    </div>
+
+    <a class="play-btn"
+       href="https://play.google.com/store/apps/details?id=com.pgcn.yetanotherminirl"
+       target="_blank" rel="noopener">
+      <img src="assets/icon_512.png" alt="">
+      GET ON GOOGLE PLAY
+    </a>
+    <p style="margin-top:20px;font-size:6px;letter-spacing:2px;">
+      <a href="privacy.html" style="color:var(--dim);text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--dim)'">PRIVACY POLICY</a>
+    </p>
+  </section>
+
+  <!-- ═══ FEATURES ═══ -->
+  <section class="features">
+    <h2 class="section-title">WHAT AWAITS YOU</h2>
+    <div class="cards">
+      <div class="card">
+        <img class="card-icon" src="sprites/player_01.png" alt="">
+        <h3>TURN-BASED</h3>
+        <p>Every step is a move.<br>Every move is a choice.<br>Think or die.</p>
+      </div>
+      <div class="card">
+        <img class="card-icon" src="sprites/item_treasure.png" alt="">
+        <h3>ROGUELIKE</h3>
+        <p>Procedural dungeons.<br>Permanent upgrades.<br>Permadeath.</p>
+      </div>
+      <div class="card">
+        <img class="card-icon" src="sprites/item_bomb.png" alt="">
+        <h3>EXPLOSIVE</h3>
+        <p>Bombs, Greek fire,<br>chain reactions.<br>Go out with a bang.</p>
+      </div>
+      <div class="card">
+        <img class="card-icon" src="sprites/item_coin.png" alt="">
+        <h3>SHOP &amp; UPGRADES</h3>
+        <p>Spend gold wisely.<br>Pick your upgrades.<br>Build your run.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCREENSHOTS ═══ -->
+  <section class="screenshots">
+    <h2 class="section-title">SCREENSHOTS</h2>
+    <div class="shot-track">
+      <img src="assets/screenshots/screenshot_1.png" alt="Screenshot 1">
+      <img src="assets/screenshots/screenshot_2.png" alt="Screenshot 2">
+      <img src="assets/screenshots/screenshot_3.png" alt="Screenshot 3">
+      <img src="assets/screenshots/screenshot_4.png" alt="Screenshot 4">
+      <img src="assets/screenshots/screenshot_5.png" alt="Screenshot 5">
+      <img src="assets/screenshots/screenshot_6.png" alt="Screenshot 6">
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <a href="privacy.html">Privacy Policy</a>
+    <p class="copyright">&copy; 2026 PGMCN PROJECTS &mdash; ALL RIGHTS RESERVED</p>
+  </footer>
+
+</div><!-- /content -->
+
+<script>
+/* ════════════════════════════════════════
+   BACKGROUND — animated dungeon grid
+════════════════════════════════════════ */
+(function () {
+  const cv = document.getElementById('bg-canvas');
+  const cx = cv.getContext('2d');
+  const T = 52;
+  let W, H, cols, rows, offset = 0, last = 0;
+  const glows = [];
+  const GLOW_COLS = ['#ffd900','#e03030','#26c44b','#9966cc','#aabfff'];
+
+  function resize() {
+    W = cv.width  = window.innerWidth;
+    H = cv.height = window.innerHeight;
+    cols = Math.ceil(W / T) + 2;
+    rows = Math.ceil(H / T) + 2;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  setInterval(() => {
+    if (glows.length > 18) return;
+    glows.push({
+      x: Math.floor(Math.random() * cols),
+      y: Math.floor(Math.random() * rows),
+      alpha: 0, dir: 1,
+      col: GLOW_COLS[Math.floor(Math.random() * GLOW_COLS.length)]
+    });
+  }, 420);
+
+  function frame(ts) {
+    const dt = Math.min(ts - last, 50); last = ts;
+    cx.clearRect(0, 0, W, H);
+
+    offset = (offset + dt * 0.008) % T;
+
+    /* floor tiles */
+    cx.fillStyle = '#252525';
+    for (let x = 0; x < cols; x++)
+      for (let y = 0; y < rows; y++)
+        cx.fillRect(x * T - offset + 1, y * T - offset + 1, T - 2, T - 2);
+
+    /* glow cells */
+    for (let i = glows.length - 1; i >= 0; i--) {
+      const g = glows[i];
+      g.alpha += dt * 0.0018 * g.dir;
+      if (g.alpha >= 1) { g.alpha = 1; g.dir = -1; }
+      if (g.alpha <= 0) { glows.splice(i, 1); continue; }
+      cx.save();
+      cx.globalAlpha = g.alpha * 0.4;
+      cx.fillStyle = g.col;
+      cx.fillRect(g.x * T - offset + 1, g.y * T - offset + 1, T - 2, T - 2);
+      cx.restore();
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ════════════════════════════════════════
+   DUNGEON PREVIEW — animated mini dungeon
+════════════════════════════════════════ */
+(function () {
+  const cv = document.getElementById('dungeon-canvas');
+  const cx = cv.getContext('2d');
+  const T = 36, COLS = 7, ROWS = 9, YOFF = 18;
+
+  const SPRITE_NAMES = [
+    'tile_floor', 'player_01',
+    'monster_slime', 'monster_bat', 'monster_skeleton', 'monster_ogre', 'monster_ghost',
+    'item_heart', 'item_coin',
+    'ui_heart_on', 'ui_heart_off'
+  ];
+  const S = {};
+  let loaded = 0;
+  SPRITE_NAMES.forEach(n => {
+    const img = new Image();
+    img.src = `sprites/${n}.png`;
+    img.onload = img.onerror = () => { if (++loaded === SPRITE_NAMES.length) init(); };
+    S[n] = img;
+  });
+
+  const MONSTER_TYPES  = ['monster_slime','monster_bat','monster_skeleton','monster_ghost'];
+  const MONSTER_COLORS = { monster_slime:'#26c44b', monster_bat:'#9966cc', monster_skeleton:'#ccc', monster_ghost:'#aabfff', monster_ogre:'#59b34c' };
+
+  let player, monsters, items, popups, stepTimer, last;
+
+  function rnd(n) { return Math.floor(Math.random() * n); }
+  function occupied(x, y) {
+    if (player.x === x && player.y === y) return true;
+    return monsters.some(m => m.x === x && m.y === y);
+  }
+  function placeRandom() {
+    for (let i = 0; i < 100; i++) {
+      const x = rnd(COLS), y = rnd(ROWS);
+      if (!occupied(x, y) && (Math.abs(x - player.x) + Math.abs(y - player.y)) > 2)
+        return { x, y };
+    }
+    return null;
+  }
+
+  function spawnMonsters() {
+    for (let i = 0; i < 3; i++) {
+      const pos = placeRandom();
+      if (pos) monsters.push({ ...pos, type: MONSTER_TYPES[rnd(MONSTER_TYPES.length)], flash: 0 });
+    }
+  }
+  function spawnItem() {
+    const pos = placeRandom();
+    if (pos) items.push({ ...pos, type: Math.random() < .6 ? 'item_heart' : 'item_coin' });
+  }
+
+  function init() {
+    player   = { x: 3, y: 4, hp: 7, maxHp: 10 };
+    monsters = [];
+    items    = [];
+    popups   = [];
+    stepTimer = 0;
+    last = 0;
+    spawnMonsters();
+    spawnItem(); spawnItem();
+    requestAnimationFrame(loop);
+  }
+
+  function nearest() {
+    return monsters.reduce((a, b) =>
+      (Math.abs(a.x-player.x)+Math.abs(a.y-player.y)) <= (Math.abs(b.x-player.x)+Math.abs(b.y-player.y)) ? a : b
+    , monsters[0]);
+  }
+
+  function tick() {
+    if (!monsters.length) { spawnMonsters(); spawnItem(); return; }
+
+    const t = nearest();
+    const dx = t.x - player.x, dy = t.y - player.y;
+    const dist = Math.abs(dx) + Math.abs(dy);
+
+    if (dist <= 1) {
+      /* kill */
+      t.flash = 1.0;
+      popups.push({ x: t.x * T + T * .5, y: YOFF + t.y * T, text: '⚔', col: '#fff', t: 0 });
+      setTimeout(() => {
+        const i = monsters.indexOf(t);
+        if (i !== -1) monsters.splice(i, 1);
+        if (!monsters.length) { spawnMonsters(); spawnItem(); }
+      }, 180);
+    } else {
+      /* step toward */
+      if (Math.abs(dx) >= Math.abs(dy)) player.x += Math.sign(dx);
+      else                              player.y += Math.sign(dy);
+    }
+
+    /* pick up items */
+    items = items.filter(item => {
+      if (item.x !== player.x || item.y !== player.y) return true;
+      if (item.type === 'item_heart') {
+        player.hp = Math.min(player.hp + 2, player.maxHp);
+        popups.push({ x: player.x*T+T*.5, y: YOFF + player.y*T-2, text: '+2', col: '#ff6fa8', t: 0 });
+      } else {
+        popups.push({ x: player.x*T+T*.5, y: YOFF + player.y*T-2, text: 'g+', col: '#ffd900', t: 0 });
+      }
+      spawnItem();
+      return false;
+    });
+
+    /* random damage for visual interest */
+    if (Math.random() < .12) {
+      player.hp = Math.max(1, player.hp - 1);
+      popups.push({ x: player.x*T+T*.5, y: YOFF + player.y*T-2, text: '-1', col: '#e03030', t: 0 });
+    }
+  }
+
+  function draw(dt) {
+    /* clear */
+    cx.fillStyle = '#1e1e1e';
+    cx.fillRect(0, 0, cv.width, cv.height);
+
+    /* separator */
+    cx.fillStyle = '#333';
+    cx.fillRect(0, YOFF - 2, cv.width, 1);
+
+    /* floor */
+    const floorOk = S['tile_floor'].complete && S['tile_floor'].naturalWidth;
+    for (let x = 0; x < COLS; x++)
+      for (let y = 0; y < ROWS; y++) {
+        if (floorOk) cx.drawImage(S['tile_floor'], x*T, YOFF + y*T, T, T);
+        else { cx.fillStyle = '#2a2a2a'; cx.fillRect(x*T+1, YOFF + y*T+1, T-2, T-2); }
+      }
+
+    /* items */
+    items.forEach(it => {
+      const img = S[it.type];
+      if (img && img.complete && img.naturalWidth) cx.drawImage(img, it.x*T, YOFF + it.y*T, T, T);
+    });
+
+    /* monsters */
+    monsters.forEach(m => {
+      if (m.flash > 0) {
+        cx.save();
+        cx.globalAlpha = m.flash * .9;
+        cx.fillStyle = '#fff';
+        cx.fillRect(m.x*T, YOFF + m.y*T, T, T);
+        cx.restore();
+        m.flash = Math.max(0, m.flash - dt * .006);
+      }
+      const img = S[m.type];
+      if (img && img.complete && img.naturalWidth) cx.drawImage(img, m.x*T, YOFF + m.y*T, T, T);
+      else {
+        cx.fillStyle = MONSTER_COLORS[m.type] || '#fff';
+        cx.fillRect(m.x*T+6, YOFF + m.y*T+6, T-12, T-12);
+      }
+    });
+
+    /* player */
+    const pi = S['player_01'];
+    if (pi && pi.complete && pi.naturalWidth) cx.drawImage(pi, player.x*T, YOFF + player.y*T, T, T);
+    else {
+      cx.fillStyle = '#ffd900';
+      cx.fillRect(player.x*T+6, YOFF + player.y*T+6, T-12, T-12);
+    }
+
+    /* hearts HUD */
+    const hs = 12;
+    for (let i = 0; i < player.maxHp; i++) {
+      const key = i < player.hp ? 'ui_heart_on' : 'ui_heart_off';
+      const hi = S[key];
+      if (hi && hi.complete && hi.naturalWidth)
+        cx.drawImage(hi, 3 + i * (hs + 1), 3, hs, hs);
+    }
+
+    /* popups */
+    popups = popups.filter(p => {
+      p.t += dt * .0022;
+      if (p.t >= 1) return false;
+      cx.save();
+      cx.globalAlpha = 1 - p.t;
+      cx.fillStyle = p.col;
+      cx.font = 'bold 11px monospace';
+      cx.textAlign = 'center';
+      cx.fillText(p.text, p.x, p.y - p.t * 28);
+      cx.restore();
+      return true;
+    });
+  }
+
+  function loop(ts) {
+    const dt = Math.min(ts - last, 50); last = ts;
+    stepTimer += dt;
+    if (stepTimer >= 520) { stepTimer = 0; tick(); }
+    draw(dt);
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+
 </body>
 </html>

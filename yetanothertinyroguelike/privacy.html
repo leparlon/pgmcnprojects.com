@@ -1,15 +1,267 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Privacy Policy</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Yet Another Tiny Roguelike</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:     #1a1a1a;
+      --tile:   #222222;
+      --border: #2e2e2e;
+      --gold:   #ffd900;
+      --text:   #cccccc;
+      --dim:    #777;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Press Start 2P', monospace;
+      line-height: 1;
+    }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 28px 80px;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 36px;
+      margin-bottom: 52px;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 7px;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--gold); }
+    .back-link::before { content: '← '; }
+
+    .page-title {
+      font-size: clamp(12px, 2.5vw, 18px);
+      color: var(--gold);
+      text-shadow: 0 0 18px rgba(255,217,0,.3);
+      letter-spacing: 2px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .page-app {
+      font-size: 7px;
+      color: var(--dim);
+      letter-spacing: 3px;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      background: var(--tile);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 32px 28px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section p,
+    .section li {
+      font-size: 7px;
+      color: var(--dim);
+      line-height: 2.8;
+      margin-bottom: 14px;
+    }
+
+    .section p:last-child,
+    .section li:last-child { margin-bottom: 0; }
+
+    .section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .section ul li::before {
+      content: '> ';
+      color: var(--gold);
+    }
+
+    .highlight {
+      color: var(--text);
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    .effective-date {
+      font-size: 6px;
+      color: #444;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      text-align: center;
+      margin-top: 52px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .page-footer a {
+      font-size: 7px;
+      color: var(--dim);
+    }
+    .page-footer p {
+      font-size: 5px;
+      color: #333;
+      margin-top: 12px;
+      letter-spacing: 1px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Privacy Policy</h1>
 
-  <p>This app does not collect personal data.</p>
+<div class="page">
 
-  <p>If using Google Play services, anonymous data may be collected by Google.</p>
+  <header class="page-header">
+    <a class="back-link" href="index.html">BACK</a>
+    <h1 class="page-title">PRIVACY POLICY</h1>
+    <p class="page-app">YET ANOTHER TINY ROGUELIKE</p>
+    <p class="effective-date">EFFECTIVE DATE: MARCH 2026</p>
+  </header>
 
-  <p>Contact: leparlon@gmail.com</p>
+  <div class="section">
+    <h2>1. OVERVIEW</h2>
+    <p>
+      This Privacy Policy describes how <span class="highlight">PGMCN Projects</span>
+      ("we", "us", or "our") handles information in connection with the mobile application
+      <span class="highlight">Yet Another Tiny Roguelike</span> (the "App"),
+      available on the Google Play Store.
+    </p>
+    <p>
+      We are committed to protecting your privacy.
+      This App is a single-player mobile game and does not require account registration,
+      does not collect personal information, and does not transmit any data to our own servers.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>2. INFORMATION WE COLLECT</h2>
+    <p>
+      <span class="highlight">We do not collect, store, or process any personal data.</span>
+      The App does not request access to your contacts, camera, microphone, location,
+      files, or any other sensitive device resources.
+    </p>
+    <p>All game data (scores, progress, settings) is stored locally on your device.</p>
+  </div>
+
+  <div class="section">
+    <h2>3. THIRD-PARTY SERVICES</h2>
+    <p>
+      The App integrates <span class="highlight">Google Play Games Services</span>
+      to provide optional features such as achievements and sign-in.
+      If you choose to sign in with Google Play Games, Google may collect
+      information in accordance with their own privacy policies.
+    </p>
+    <p>We have no access to, and do not control, the data collected by Google.</p>
+    <ul>
+      <li>
+        Google Play Games Services Privacy Policy:
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+          policies.google.com/privacy
+        </a>
+      </li>
+      <li>
+        Google Play Terms of Service:
+        <a href="https://play.google.com/about/play-terms/" target="_blank" rel="noopener">
+          play.google.com/about/play-terms
+        </a>
+      </li>
+    </ul>
+    <p>
+      Use of Google Play Games Services is entirely optional.
+      All core gameplay functions are available without signing in.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>4. ANALYTICS &amp; ADVERTISING</h2>
+    <p>
+      The App does not include any advertising SDKs, analytics SDKs,
+      or tracking libraries of any kind. No usage data, crash reports,
+      or behavioral analytics are collected by us.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>5. CHILDREN'S PRIVACY</h2>
+    <p>
+      The App does not knowingly collect personal information from children
+      under the age of 13. Since we do not collect any personal data at all,
+      the App is safe for all ages in that regard.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>6. DATA SECURITY</h2>
+    <p>
+      Because we do not collect or transmit personal data, there is no
+      user data stored on our end that could be subject to a security breach.
+      Local game data is stored on your device and is governed by your
+      device's own security model.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>7. CHANGES TO THIS POLICY</h2>
+    <p>
+      We may update this Privacy Policy from time to time. Any changes will be
+      reflected on this page with an updated effective date. We encourage you
+      to review this page periodically.
+    </p>
+    <p>
+      Continued use of the App after changes are posted constitutes your
+      acceptance of the revised policy.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>8. CONTACT</h2>
+    <p>
+      If you have any questions or concerns about this Privacy Policy,
+      please contact us at:
+    </p>
+    <p>
+      <a href="mailto:leparlon@gmail.com">leparlon@gmail.com</a>
+    </p>
+  </div>
+
+  <footer class="page-footer">
+    <a href="index.html">Yet Another Tiny Roguelike</a>
+    <p>&copy; 2026 PGMCN PROJECTS &mdash; ALL RIGHTS RESERVED</p>
+  </footer>
+
+</div>
+
 </body>
 </html>
