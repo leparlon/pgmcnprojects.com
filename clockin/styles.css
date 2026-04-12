@@ -1,0 +1,317 @@
+/* ═══════════════════════════════════════════════════
+   Clock In — styles.css
+
+   Palette: near-black, muted grays, bus-window sky.
+   The only warm color is the post-it yellow from
+   the game icon — used sparingly.
+═══════════════════════════════════════════════════ */
+:root {
+  --bg:     #111111;
+  --text:   #adadad;
+  --dim:    #505050;
+  --accent: #d0b03a;   /* post-it yellow — from the game's icon */
+  --sky:    #8c9092;   /* muted gray, matches the in-game bus sky */
+  --font:   -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow-x: hidden;
+}
+
+/* ──────────────────────────────────────
+   BUS SCENE
+   Fixed, full viewport, always behind.
+   Layers z-indexed back to front.
+   bus-overlay sits on top.
+────────────────────────────────────── */
+#bus-scene {
+  position: fixed;
+  inset: 0;
+  background: var(--sky);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: auto 100%;
+  will-change: background-position-x;
+}
+
+/* Asset paths — update here if files are renamed */
+#l3 { background-image: url('assets/backgrounds/cena2_back_3.png'); z-index: 1; }
+#l2 { background-image: url('assets/backgrounds/cena2_back_2.png'); z-index: 2; }
+#l1 { background-image: url('assets/backgrounds/cena2_back_1.png'); z-index: 3; }
+#l0 { background-image: url('assets/backgrounds/cena2_back_0.png'); z-index: 4; }
+
+/* Bus window frame — stays fixed over the city */
+#bus-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
+}
+
+/* ──────────────────────────────────────
+   PAGE — scrolls over the fixed bus
+────────────────────────────────────── */
+#page {
+  position: relative;
+  z-index: 1;
+}
+
+/* ──────────────────────────────────────
+   HERO
+   Transparent so the bus shows through.
+   Slight center vignette for readability.
+────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse 55% 45% at 50% 54%,
+    rgba(0, 0, 0, 0.48) 0%,
+    transparent 100%
+  );
+}
+
+.hero-body { text-align: center; }
+
+#day-label {
+  font-size: 0.63rem;
+  letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  transition: opacity 0.6s;
+}
+
+h1 {
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1;
+  text-shadow: 0 2px 32px rgba(0, 0, 0, 0.75);
+}
+
+.tagline {
+  margin-top: 18px;
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.20);
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.16);
+  font-size: 0.68rem;
+  text-decoration: none;
+  animation: bob 2.8s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateX(-50%) translateY(0);   opacity: 0.16; }
+  50%       { transform: translateX(-50%) translateY(8px); opacity: 0.36; }
+}
+
+/* ──────────────────────────────────────
+   CONTENT SECTIONS
+   Sections below the hero cover the bus.
+   Intro fades from transparent to dark.
+────────────────────────────────────── */
+#intro {
+  /* Smooth fade from transparent hero into dark content */
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 16%);
+}
+
+#fragments,
+#about,
+#links,
+footer {
+  background: var(--bg);
+}
+
+.prose {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 80px 28px 60px;
+}
+
+.prose p {
+  font-size: 1.0rem;
+  line-height: 2.1;
+}
+
+.prose .dim  { color: var(--dim); }
+.prose .gap  { margin-top: 1.8em; }
+
+/* ──────────────────────────────────────
+   FRAGMENTS
+   Screenshots shown as scattered physical
+   documents — slightly rotated, offset.
+   Hovering reveals color.
+────────────────────────────────────── */
+#fragments { padding: 0 24px 60px; }
+
+.frag-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.frag img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(35%) brightness(0.88);
+  border: 1px solid #202020;
+  transition: filter 0.5s, transform 0.3s;
+}
+
+.frag:hover img { filter: grayscale(0%) brightness(1); }
+
+/* Individual fragment rotations */
+.ra { width: 238px; transform: rotate(-2.0deg) translateY(14px); }
+.rb { width: 308px; transform: rotate(1.2deg);                   }
+.rc { width: 252px; transform: rotate(-0.8deg) translateY(26px); }
+
+/* ──────────────────────────────────────
+   ABOUT
+────────────────────────────────────── */
+#about .prose { padding-bottom: 20px; }
+#about .prose p { font-size: 0.90rem; }
+
+.postit-wrap {
+  padding: 0 28px 64px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/*
+  Post-it: the game's UI texture tinted with the accent yellow.
+  background-blend-mode: multiply overlays the yellow onto the
+  gray wrinkled texture, producing a naturally stained look.
+  Swap postit1.png with postit2.png for a different crumple shape.
+*/
+.postit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 82px;
+  height: 82px;
+  background-color: var(--accent);
+  background-image: url('assets/ui/postit1.png');
+  background-size: cover;
+  background-blend-mode: multiply;
+  transform: rotate(-4deg);
+  text-decoration: none;
+  transition: transform 0.22s;
+}
+
+.postit span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #1a1200;
+}
+
+.postit:hover { transform: rotate(-1.5deg) scale(1.06); }
+
+/* ──────────────────────────────────────
+   LINKS
+────────────────────────────────────── */
+#links { padding: 0 28px 64px; }
+
+.links-block {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lnk {
+  display: inline-block;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  text-decoration: none;
+  padding: 9px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.lnk:hover {
+  color: var(--text);
+  border-bottom-color: #252525;
+}
+
+.lnk.primary {
+  color: var(--text);
+  font-size: 0.96rem;
+  margin-bottom: 14px;
+}
+
+.lnk.primary:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ──────────────────────────────────────
+   FOOTER
+────────────────────────────────────── */
+footer {
+  padding: 24px 28px;
+  border-top: 1px solid #191919;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: #2a2a2a;
+}
+
+.back {
+  color: #363636;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back:hover { color: var(--text); }
+
+/* ──────────────────────────────────────
+   Responsive
+────────────────────────────────────── */
+@media (max-width: 580px) {
+  .ra, .rb, .rc {
+    width: 88%;
+    transform: none;
+  }
+  .frag-wrap {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+}

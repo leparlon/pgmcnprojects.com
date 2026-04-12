@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Clock In — a short narrative game about routine, apathy, and quiet loss of control.">
+  <title>Clock In</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!--
+  Bus scene: fixed to viewport, always behind the page.
+  Layers stack back to front. Overlay sits on top.
+  Assets: assets/backgrounds/
+-->
+<div id="bus-scene" aria-hidden="true">
+  <div class="layer" id="l3"></div>  <!-- furthest, slowest -->
+  <div class="layer" id="l2"></div>
+  <div class="layer" id="l1"></div>
+  <div class="layer" id="l0"></div>  <!-- closest, fastest -->
+  <!-- Bus window frame — fixed on top of the city -->
+  <img id="bus-overlay" src="assets/backgrounds/bus_window_overlay.png" alt="">
+</div>
+
+<div id="page">
+
+  <!-- ═══ HERO — transparent, bus shows through ═══ -->
+  <section id="hero">
+    <div class="hero-body">
+      <p id="day-label">Day 1</p>
+      <h1 id="main-title">CLOCK IN</h1>
+      <p class="tagline">leave before 8:00</p>
+    </div>
+    <a href="#intro" class="scroll-cue" aria-label="continue">▼</a>
+  </section>
+
+  <!-- ═══ INTRO ═══ -->
+  <section id="intro">
+    <div class="prose">
+      <p>You evaluate emotions.</p>
+      <p>You keep the CALM.</p>
+      <p>You do this every day.</p>
+      <p class="gap dim">At some point, something changes.</p>
+      <p class="dim">You may not notice right away.</p>
+    </div>
+  </section>
+
+  <!-- ═══ FRAGMENTS — screenshots as scattered documents ═══ -->
+  <section id="fragments">
+    <div class="frag-wrap">
+      <!-- Bedroom: the alarm, the beginning -->
+      <div class="frag ra">
+        <img src="assets/screenshots/Screenshot_20250518_160204_Chrome.jpg" alt="">
+      </div>
+      <!-- Office terminal: the job -->
+      <div class="frag rb">
+        <img src="assets/screenshots/Screenshot_20250518_160236_Chrome.jpg" alt="">
+      </div>
+      <!-- The commute: the in-between -->
+      <div class="frag rc">
+        <img src="assets/screenshots/Screenshot_20250518_160212_Chrome.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="prose">
+      <p>A short narrative game made for Ludum Dare 57.</p>
+      <p class="dim">Compo category. Ranked 3rd in Mood.</p>
+      <p class="gap">You are a worker. Your job is to evaluate emotions
+      and maintain the CALM. At first, you're in control.</p>
+    </div>
+    <div class="postit-wrap">
+      <!--
+        Post-it asset: assets/ui/postit1.png
+        Tinted yellow via background-blend-mode.
+      -->
+      <a href="https://leparlon.itch.io/clock-in"
+         class="postit"
+         target="_blank" rel="noopener">
+        <span>play</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ LINKS ═══ -->
+  <section id="links">
+    <div class="links-block">
+      <a href="https://leparlon.itch.io/clock-in"
+         class="lnk primary"
+         target="_blank" rel="noopener">
+        play in the browser →
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.pgcn.clockin"
+         class="lnk"
+         target="_blank" rel="noopener">
+        Google Play
+      </a>
+      <a href="https://ldjam.com/events/ludum-dare/57/clock-in"
+         class="lnk"
+         target="_blank" rel="noopener">
+        Ludum Dare 57
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="../" class="back">← pgmcn projects</a>
+    <span class="copy">© 2026 PGMCN Projects</span>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
