@@ -1,0 +1,318 @@
+game made for ludumdare57 (nice to mention)
+https://ldjam.com/events/ludum-dare/57/clock-in
+description on page and comments from players:
+COMPO GAME by leparlon (@leparlon)
+Link to HTML5 - Itch.io
+
+(I could not make the game work on LD’s site, try playing full screen on itch.io)
+
+For this jam, I tried something new, a more narrative driven game.
+I usually don’t add any story to my projects, so this was a big challenge…
+
+CLOCK IN is a slow descent into routine, apathy, and loss of control. You play a worker. Your job is to evaluate emotions and keep the CALM. At first, you’re in control. Eventually… maybe not.
+
+I hope you enjoy.
+
+Thanks for playing.
+
+Screen_Recording_20250406_033419_Chrome2-ezgif.com-video-to-gif-converter.gif
+
+Screenshot_20250406_033727_Chrome.jpg
+
+Used Aseprite and Paint.Net for graphics
+Audacity for audio (mainly to process, cut, loop, fade and convert audio)
+Godot as main engine
+
+Links
+ Source Code hosted on Itch's page
+https://leparlon.itch.io/clock-in
+ HTML5 (web)
+https://leparlon.itch.io/clock-in
+Results
+Final results
+Overall: 56th (3.797 average from 34 ratings)
+Fun: 159th (3.25 average from 32 ratings)
+Innovation: 24th (4.05 average from 32 ratings)
+Theme: 134th (3.645 average from 33 ratings)
+Graphics: 82nd (3.823 average from 33 ratings)
+Audio: 43rd (3.867 average from 32 ratings)
+Humor: 60th (3.414 average from 31 ratings)
+Mood: 3rd (4.453 average from 34 ratings)
+When a line is N/A, it means there weren't enough ratings for a reliable score. Don't forget to play and rate other people's games during events to prioritize your game.
+Metrics
+Advanced data on this game
+Karma from Feedback given: 26
+Ratings given: 21
+Ratings received: 32.625
+Classic Balance: 81.4881 *
+Smart Balance: -8.0607 *
+Metrics update roughly every 15 minutes. If they don't exactly match other data (i.e. ratings), this is because they haven't updated yet. Metrics with a * are dynamic, and change based on a variety of factors. It is normal for these numbers to go up and down.
+COMMENTS
+by Lil_axolotl (@lil-axolotl), published 12 months ago
+Very interesting ! I tried to wait until after 8:00 to see what would happen and… well, I leave the surprise for future players ;)
+
+1
+by Jon Curtin (@jon-curtin), published 12 months ago
+Papers Please but more more depressing? But at the same time humorous. Well done. It’s hard to make dystopia fun and funny but you managed to do it. Hope you keep making games.
+
+1
+by Sayeg (@sayeg), published 12 months ago
+Great game. Never hated going to work so much. The alarm clock will haunt my dreams. Very realistic.
+
+1
+by Sicosiber (@sicosiber), published 12 months ago
+clocked in at 8:01… yeah, I’m kinda a rebel
+
+2
+by TasakaSama (@tasakasama), published 12 months ago
+I like the approach to the theme and this bus transport animation is so cool, well done
+
+1
+by smilewood (@smilewood), published 12 months ago
+Nicely done, I feel you with the challenge of adding story to a game in a game jam timeframe. I thought that your game did a fun job of telling the dystopian world story you were going for, I liked the way that it progressed.
+
+1
+by frutal (@frutal), published 12 months ago
+I think the gameplay variations as the game progressed told a pretty compelling story. Repetition is a pretty interesting element that you used in a great way.
+
+1
+by Joel Davis (@joel-davis), published 12 months ago
+Well done. I loved the mechanism of slowly taking away player agency over time. I think the trouble with making a game exploring a “bleak” or “boring” situation is that if your work succeeds (and I think this does) then it just feels bleak and depressing. Need to find a way to separate the player and the character they are playing, so that the player is challenged or entertained or made to think, even if the in-game character is numbed or depressed. Lots of nice subtle touches in this, like the draining color in the commute.
+
+1
+by CamComDuck (@camcomduck), published 12 months ago
+this feels like a work of art more than a game (this is meant as a compliment). the seeming lack of choice is a really interesting mechanic I’d never thought of before really. I think the graphics played into it super well too. I found myself wishing for any explanation on what I was doing, why I was doing it, the differences in the buttons, and found that no explanation actually played into the theme better, so I can appreciate it more (even if that was unintentional). I think you could have leaned even more into the monotonous atmosphere, maybe adding the train ride back home too, having to click to turn off the alarm every morning, just more small “meaningless” and repetitive tasks.
+
+1
+by Mael Rios (@mael-rios), published 12 months ago
+Very cool game ! Really has the papers please vibe with the emotion / thought police of 1984 well done!
+
+1
+by Lucasito (@lucasito), published 12 months ago
+Wow, very cool ! Love the story (:
+
+1
+by GwendalG (@gwendalg), published 12 months ago
+Very cool game, it makes you quickly dive into this universe thanks to the graphics and sound.
+
+1
+by Thomas Higgins (@thomas-higgins), published 11 months ago
+man this was groovy - nothing made me feel like the background office worker in dystopian nightmare as watching all the colours leave my world would be plunged into emotional dread again 10/10
+
+1
+by ybzpp (@ybzpp), published 11 months ago
+wow, awesome atmosphere!
+
+1
+by Borabee (@borabee), published 11 months ago
+I left this game feeling bleak and empty inside… I think you did an AMAZING job setting up the mood of a dystopia and of the loss of control, from the straightforward muted art to the robotic sounds and the streamlined gameplay where gradually you have nothing to do, you being there just doesn’t make any difference and the game keeps going… Very interesting game.
+
+1
+by Wouter52 (@wouter52), published 11 months ago
+Wow this is dark when you think about it. Left me with some strange feeling in my stomach, well done! The dinner sequence in particular. Why get the fancy meal when “standard” will suffice?
+I agree with some people here: this can be considered art
+
+1
+by mdsalomon (@mdsalomon), published 11 months ago
+like Papers, Please as directed by David Firth. Really cool, yet distressing idea. Great effort!
+
+1
+by Nomus (@nomus), published 11 months ago
+This remind me of my days
+
+1
+by mooyett (@mooyett), published 11 months ago
+Great, I like the Orwellian atmosphere. I desperately tried to get fired by being unstable but got replaced with an AI answering for me, just like in real life! Great job and nice message, keep on going !
+
+1
+by caffeinetrip (@caffeinetrip), published 11 months ago
+Amazing dystopian game! Love the atmosphere. The office experience feels so real it’s scary. Can’t wait to see what you create next!
+
+1
+by MoD_Wiz (@mod-wiz), published 11 months ago
+This one makes me feel things. How can i describe it, Papers, please with a dose of Severance perhaps? It also reminds me of a game Will die alone in some regard.
+
+It’s very atmospheric and i love the use of gameplay (taking away a player choice) as a storytelling method. Very innovative!
+
+1
+by Xparker (@xparker), published 11 months ago
+Papers please mixed with ORWELL. Love it.
+
+Especially the fact, that the train slowly turns to gray / loses color.
+
+1
+by grid96 (@grid96), published 11 months ago
+Wow, this was depressing.. Amazing how you’ve built up that dark atmosphere visually and gameplay wise. Especially when the game starts clicking the buttons for you. Definitely very deep!
+
+1
+------
+here is a post portem of the game plus the posts during development Well, that was depressing…
+by leparlon (@leparlon), published 11 months ago
+…and that might be just why it worked.
+(A CLOCK IN post-mortem and a story on telling stories or is it deep to tell a deep story?)
+
+How it started:
+Screenshot 2025-04-28 013724.pngHow it ended:
+Screenshot 2025-04-27 223147.pngIt ended up ranking #3 in Mood. (Bragging, I know, but I’m proud that for once I succeeded on what I tried to succeed)
+
+white_check_mark What Went Right: Taking Away Control (At the Worst Possible Time)
+For most Jams, I like to take a few hours (or a whole night) just thinking about the theme, no rush, no pressure, just letting ideas brew while I walk around, talk to family or even sleep on it.
+It’s honestly one of my favorite parts of the jam: wasting time on weird, probably (likely) bad ideas that only sound good in my head 😅.
+
+This time, the idea came a little faster (for reasons I will discuss a bit downwards) and I spent half a day building it out.
+It became one of my favorite memories from this jam: brainstorming a slow, invisible way to break the player.
+
+At some point, the perfectly cruel mechanic clicked:
+
+Spoilers ahead:
+If you plan to play the game, go now, it’s pretty short, runs in the browser, can even be played from your mobile, one of the feedbacks I got from my wife is that the text was small on the phone, so if you click the post-its, the text enlarges.
+Come back here later.
+
+Continuing:
+
+Screenshot_20250406_033727_Chrome.jpg
+
+What if the moment the player finally got how the system works, right at that satisfying peak where you’re just starting to master it, the game would start taking it away?
+Without warning.
+
+One day, the first click happens for you, with an odd subtle sound, minimal feedback. The first one, so you are not sure what happens. It does not happen again, until…
+Next day, two clicks.
+Until you’re just… there.
+Present, but no longer necessary.
+
+I wanted players to feel a tiny sting of unfairness.
+And then realize:
+that’s the point.
+
+There are plenty of small little things that I think add to it:
+Hidden visual cues: crosses growing on buildings… the city itself quietly turning into a graveyard for obedient drones.
+Post-it notes that come back (depending on the answer you gave, hinting at something darker).
+Your base salary just sort of continues…
+And even the way the game ends is cryptic: wtf happens?
+Well, only you know.
+
+It is possible to end the game on the 3 screens, it’s pretty hard to trigger on some (and time-consuming).
+I was kind of hoping someone would eventually stumble on them accidentally (some hints on the comments made me think some did).Screenshot_20250406_033745_Chrome.jpg
+
+white_check_mark Minimalism Helped the Story
+Well, as usual, drawing takes me FOREVER, does not matter if I try to rush it, I always take way too long to make one button look right (Not a perfectionist, I just suck at it, there is always something weird I many times fix with some lucky pixel I forget to erase).
+And well, compo timing being short, and I had even less time with family visiting, so, minimalist art style was not a design choice, it was basically survival.
+
+But it ended up helping the game a lot…
+The static screens, muted colors, black screen transitions, and limited interactions made the world feel colder, flatter… drained.
+Which is exactly what the story needed.
+
+Instead of showing a bustling city full of life, what we got was that 2 shades of gray 6 shapes of squares kind of city.
+Instead of celebrating progress, everything around you just sat there, grey.
+The way the city faded into grayscale as you commuted, the old computer screen (with PERFECT buttons), the dead, boring apartment…
+
+Screen_Recording_20250406_033419_Chrome2-ezgif.com-video-to-gif-converter.gif
+
+Almost like I found a cheat code for making bad art work (I amazingly got 82 in graphics).
+
+white_check_mark Its fun thinking about story telling.
+Instead of explaining how the game works, I was thinking on foreshadowing things, and how to add them.. etc.. I don’t have much to say on that, except that I had a blast doing it (even if only thinking about it).
+Recommend.
+
+Also pretty nice to try to just tell enough of something, and later hope someone gets it.. and when some one does? Oh boy, that feels coooooooool. Also Recommend.
+
+white_check_mark Building the World First (And the “Game” Second)
+One thing that helped a lot was thinking about the world first, before even worrying about the game.
+
+“What kind of world would this exist in?”
+“What would someone do there?”
+
+Judging emotions “evolved” from Judging reputation in the ideas realm. Then it became a work game, and rest just came.
+
+You are just categorizing human feelings on acceptable or not acceptable, sort of reducing people 0s and 1s (the reports also sort of devolve in that way). It felt fun to me, but I think that if the game had been longer, it probably would have gotten boring. (Maybe I also found a cheat code for bad mechanic)
+
+This ideas could only come from building the world first. I will definitely try that again, even if I make a dumb flying-armored-tree-bird-killing game once more.
+
+It was so much faster to make everything connect… I usually take forever to be satisfied with an idea..simpler times.
+
+x What Could Have Been Better - Balancing BOREDOM
+Well, I got BORED testing the game.
+By the end of the compo, I wasn’t proud anymore, I genuinely felt bad… all that gray, hidding crosses, heavy messaging and all that thinking on “how to make this darker” eventually DOES GET INTO YOU.
+I even started cutting things out: the commute home gets shorter after the first day because I literally couldn’t stand playing through it anymore.
+
+One commenter suggested clicking to stop the alarm clock.. well.. I had a starting thought on that (alarm sound was probably the last thing I added).. but that thought was interrupted by another th…. NO
+
+The game actually has an internal apathy system: some stuff you do (or don’t) slowly build it up, and if it reaches a limit, the game ends.
+It was extra challenging fiddling with it, because… how do you measure “enough” boredom for someone that will play it only once when you played the DARN THING 200 TIMES?
+
+Another thing: how do you make a boring game on purpose without just making… a boring game?
+One of the commenters very cleverly pointed it out that If you succeed at making a boring game on purpose, well… you end up with a boring game:
+
+I think the trouble with making a game exploring a “bleak” or “boring” situation is that if your work succeeds (and I think this does) then it just feels bleak and depressing
+
+And… yeah.
+The Fun score kind of reflects that. 😅
+(Heh. Maybe I found yet another cheat code.)
+
+Screenshot 2025-04-28 013009.png
+
+x There is No Way to Win
+I wish I had found (and had time for) a way to let players beat CALM, or at least reach a hidden “happy” ending.
+But honestly… I just didn’t have the energy left to do it.
+Even though I stopped working on the game with 9 hours to spare, a miracle for me, since I always finish in a mad cursing rush fixing last minute deployment issues (does not matter the engine… amazing, I always f… something up)
+
+GOOD ENOUGH.
+
+I couldn’t even think of a way to beat it.
+Now, some ideas are floating around… maybe for a post-compo version.
+
+I think that even if I added, and ended up cutting the happy ending later, just knowing it existed might have made the whole experience lighter for me while making the game.
+Instead, it was like I sorta believed the thing I was trying to build. Goddamm weak minded fool, game is not even that good. (funny thing: vacation ended today and I go back to work tomorrow)
+
+thinking Lessons Learned
+Building the world first helps a lot.
+Even if you don’t have a full gameplay loop yet, understanding the vibe and rules of the world makes every design decision faster and more natural later.
+
+Emotional games hit you too.
+Making a bleak game will bleed into your mood after a while. Plan for that. Hide an happy ending? Take breaks? I did take a few walks outside during development, it was sunny.. helped a bit.
+
+It’s FUN telling stories”
+Even though it has an expiration date on some cases, it can be fun to tell a story as it is to build a fun mechanic. Will definitely try that again.
+6
+0
+CLOCK IN – A Report on Irrelevance
+by leparlon (@leparlon), published 11 months ago
+For LD57, I tried something I usually avoid: story.
+
+Screenshot 2025-04-12 123634.png
+
+I made a narrative game. It’s pretty minimal (because… compo), cold, and intentionally a bit uncomfortable (because apparently that’s what came out easier😅).
+
+In CLOCK IN, you judge emotions.Screenshot 2025-04-12 123722.pngYou follow the routine. You do your job. Until things start feeling… thinner.
+
+Screen_Recording_20250412_132117_Chrome-ezgif.com-optimize.gif
+
+It’s about loops, losing control, and slowly becoming less relevant. Not depth like a cave or ocean, but the kind that goes inward.
+
+I was really unsure about this one. So when I saw someone pick it up on YouTube, I watched with a ton of stress. Not the usual “will it crash?” kind of stress, I was just waiting for them to hate it.
+
+But… they didn’t. They kind of liked it, even. Almost as if the story worked.
+
+Try it out. It’s pretty short.
+
+I actually enjoyed making this one more than I expected. I approached it the way I do when I DM: think about the world first, then shove a story into it.
+
+It was pretty fun to spend a few days living in that world, not sure I left it though😅
+
+Play CLOCK IN
+
+1
+0
+Clock In - Done
+by leparlon (@leparlon), published 12 months ago
+Here it is
+This time, the last-minute deployment issues happened 9 hours before the deadline… happy coder noises.
+
+Man… telling stories is hard.
+I really hope you enjoy it… especially since I couldn’t resist making yet another anti-game.
+
+game links:
+ludum dare 57 page https://ldjam.com/events/ludum-dare/57/clock-in
+google play page https://play.google.com/store/apps/details?id=com.pgcn.clockin
+itch.io page https://leparlon.itch.io/clock-in
+
