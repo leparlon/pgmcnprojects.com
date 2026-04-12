@@ -1,0 +1,413 @@
+/* ═══════════════════════════════════════════════════
+   My Pet Elegans — styles.css
+
+   Palette derived from the game's menu background and
+   petri dish screenshots: dark desaturated blue-gray,
+   silver-gray filaments, soft cool spotlight.
+═══════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   Color & type variables — swap to retheme
+───────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg:          #1b2230;
+  --bg-card:     rgba(24, 32, 46, 0.78);
+
+  /* Borders */
+  --border:      rgba(175, 198, 225, 0.11);
+  --border-soft: rgba(175, 198, 225, 0.06);
+
+  /* Text */
+  --text:        #bfcfde;    /* primary — muted off-white */
+  --text-dim:    #6a7d92;
+  --text-faint:  #374858;
+
+  /* Filament / node colors — match the neural line motif */
+  --line-color:  rgba(188, 207, 228, 0.16);
+  --node-color:  rgba(208, 220, 236, 0.44);
+
+  /* Buttons */
+  --btn-bg:      rgba(175, 198, 225, 0.10);
+  --btn-hover:   rgba(175, 198, 225, 0.18);
+  --btn-border:  rgba(175, 198, 225, 0.18);
+
+  /* Type */
+  --font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+}
+
+/* ─────────────────────────────────────────
+   Reset & base
+───────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ─────────────────────────────────────────
+   Filament background canvas
+   Fixed behind everything, full viewport
+───────────────────────────────────────── */
+#filament-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#hero {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh; /* fallback */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Petri dish canvas fills the whole hero section */
+#dish-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 48px 28px 96px;
+  max-width: 500px;
+}
+
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.hero-content h1 {
+  font-size: clamp(1.9rem, 6vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 22px;
+}
+
+.tagline {
+  font-size: clamp(0.82rem, 2vw, 0.95rem);
+  color: var(--text-dim);
+  line-height: 1.85;
+  margin-bottom: 42px;
+}
+
+/* ─────────────────────────────────────────
+   Buttons
+───────────────────────────────────────── */
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 11px 24px;
+  border-radius: 3px;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  border: 1px solid;
+}
+
+.btn-primary {
+  background: var(--btn-bg);
+  color: var(--text);
+  border-color: var(--btn-border);
+}
+.btn-primary:hover {
+  background: var(--btn-hover);
+  border-color: rgba(175, 198, 225, 0.28);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-dim);
+  border-color: var(--border-soft);
+}
+.btn-secondary:hover {
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* ─────────────────────────────────────────
+   GIF SHOWCASE
+───────────────────────────────────────── */
+#showcase {
+  padding: 80px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Observation-window card — glassy, lab-instrument feel */
+.observation-window {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 380px;
+  width: 100%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 0 1px rgba(175, 198, 225, 0.04),
+    0 4px 40px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(0, 0, 0, 0.20);
+}
+
+/* Titlebar strip */
+.obs-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.obs-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  display: block;
+  flex-shrink: 0;
+}
+
+.obs-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-faint);
+  letter-spacing: 0.16em;
+  margin-left: 5px;
+}
+
+/* GIF — swap path in index.html if asset renamed */
+.obs-gif {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Fallback panel shown when gif fails to load */
+.gif-fallback {
+  display: none;
+  padding: 64px 24px;
+  text-align: center;
+}
+.observation-window.gif-error .obs-gif     { display: none; }
+.observation-window.gif-error .gif-fallback { display: block; }
+
+.gif-fallback p {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+}
+.gif-fallback .fallback-sub {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  margin-top: 8px;
+}
+
+.obs-caption {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-faint);
+  letter-spacing: 0.14em;
+  text-align: center;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* ─────────────────────────────────────────
+   ABOUT
+───────────────────────────────────────── */
+#about {
+  padding: 60px 24px 80px;
+}
+
+.about-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#about h2 {
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 30px;
+  letter-spacing: 0.02em;
+}
+
+#about p {
+  font-size: 0.90rem;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  line-height: 1.90;
+}
+
+.about-link {
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.about-link:hover {
+  color: var(--text);
+  border-color: rgba(175, 198, 225, 0.25);
+}
+
+/* ─────────────────────────────────────────
+   FEATURES
+───────────────────────────────────────── */
+#features {
+  padding: 40px 24px 100px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 14px;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 26px 20px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: border-color 0.25s;
+}
+.feature-card:hover {
+  border-color: rgba(175, 198, 225, 0.18);
+}
+
+.feature-icon {
+  font-size: 1.25rem;
+  color: var(--text-faint);
+  margin-bottom: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.feature-card h3 {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.feature-card p {
+  font-size: 0.79rem;
+  color: var(--text-dim);
+  line-height: 1.80;
+}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border-soft);
+  padding: 44px 24px;
+}
+
+.footer-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+
+.footer-sep {
+  color: var(--text-faint);
+  font-size: 10px;
+  user-select: none;
+}
+
+.footer-note {
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+}
+
+/* ─────────────────────────────────────────
+   Responsive tweaks
+───────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-content h1  { font-size: 1.75rem; }
+  .feature-grid     { grid-template-columns: 1fr; }
+  .hero-buttons     { flex-direction: column; align-items: center; }
+  .btn-primary,
+  .btn-secondary    { width: 100%; max-width: 240px; text-align: center; }
+}

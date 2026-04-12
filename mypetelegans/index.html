@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My Pet Elegans — a tiny Android game about a simulated C. elegans worm driven by its real 302-neuron connectome.">
+  <title>My Pet Elegans</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Full-page filament background — inspired by the game's main menu neural line aesthetic -->
+<canvas id="filament-canvas" aria-hidden="true"></canvas>
+
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <!-- Petri dish spotlight + worm + motes drawn here by script.js -->
+    <canvas id="dish-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero-content">
+      <p class="hero-label">C. elegans · 302 neurons</p>
+      <h1>My Pet Elegans</h1>
+      <p class="tagline">
+        A tiny organism. A real nervous system.<br>
+        Something that feels almost alive.
+      </p>
+      <div class="hero-buttons">
+        <!-- Scrolls to GIF showcase -->
+        <a href="#showcase" class="btn-primary">See it in motion</a>
+        <!-- Replace href with Play Store URL when published -->
+        <a href="#" class="btn-secondary" target="_blank" rel="noopener">Play on Android</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GIF SHOWCASE ═══ -->
+  <section id="showcase">
+    <div class="observation-window">
+      <div class="obs-header">
+        <span class="obs-dot"></span>
+        <span class="obs-dot"></span>
+        <span class="obs-dot"></span>
+        <span class="obs-label">observation log</span>
+      </div>
+      <!--
+        Asset: assets/screenshots/gif_quick_show.gif
+        Swap filename here if the asset is renamed
+      -->
+      <img
+        src="assets/screenshots/gif_quick_show.gif"
+        alt="My Pet Elegans gameplay — worm finding food in the petri dish"
+        class="obs-gif"
+        onerror="this.closest('.observation-window').classList.add('gif-error')"
+      >
+      <div class="gif-fallback" aria-hidden="true">
+        <p>observation unavailable</p>
+        <p class="fallback-sub">specimen is shy today</p>
+      </div>
+      <p class="obs-caption">watching it find food</p>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="about-inner">
+      <h2>What is this?</h2>
+      <p>
+        C. elegans is a tiny roundworm, about a millimeter long. It has exactly 302 neurons,
+        and scientists have mapped every single connection between them. The whole wiring diagram
+        is public, published, free to use.
+      </p>
+      <p>
+        My Pet Elegans puts that wiring into a game. The worm on screen is not following a script.
+        It moves because a simplified version of its actual nervous system is running in the background,
+        processing hunger signals, sensing food with its nose, deciding what to do next.
+        Feed it. Drop an obstacle in its path. Watch it reverse.
+      </p>
+      <p>
+        It is not an accurate scientific model. It is more like a toy — a strange little observation
+        chamber where something that resembles biology plays out in real time.
+        Calm, odd, and a little hypnotic.
+      </p>
+      <!-- Replace with actual Play Store link when live -->
+      <a href="#" class="about-link" target="_blank" rel="noopener">Get it on Google Play</a>
+      <a href="https://github.com/leparlon/WormBrain" class="about-link" target="_blank" rel="noopener">Read about the plugin that powers it</a>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURES ═══ -->
+  <section id="features">
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">◉</div>
+        <h3>Feed it</h3>
+        <p>Tap to drop food. The worm smells it, finds it, eats it.
+           Watch the hunger signal clear and the whole nervous system settle.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⌁</div>
+        <h3>Watch it think</h3>
+        <p>Its movements are driven by 302 neurons ticking in real time.
+           No scripted paths. Just signals propagating through a connectome.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◌</div>
+        <h3>A petri dish toy</h3>
+        <p>One room. One worm. A handful of controls.
+           Somewhere between a game and a screensaver.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⌀</div>
+        <h3>Open source core</h3>
+        <p>The WormBrain plugin that drives the worm is free and open.
+           Build your own experiments in Godot.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer links">
+        <!-- Replace href values when live -->
+        <a href="#" target="_blank" rel="noopener">Google Play</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <a href="https://github.com/leparlon/WormBrain" target="_blank" rel="noopener">WormBrain plugin</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <a href="privacy.html">Privacy Policy</a>
+      </nav>
+      <p class="footer-note">Made as a playful experiment. PGMCN Projects · 2026</p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
