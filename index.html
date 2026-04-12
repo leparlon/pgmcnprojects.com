@@ -88,6 +88,16 @@
       height: 100%;
     }
 
+    /* Bus window overlay for the Clock In card */
+    .bus-win {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
     /* Gradient shade: dark at bottom for text readability */
     .shade {
       position: absolute;
@@ -105,13 +115,13 @@
       );
     }
 
-    /* Clock In: flat dark, muted warm tinge */
+    /* Clock In: darken only the bottom so city shows through the top */
     #clockin .shade {
       background: linear-gradient(
-        165deg,
-        rgba(10, 10, 8, 0.02) 0%,
-        rgba(10, 10, 8, 0.58) 58%,
-        rgba(10, 10, 8, 0.95) 100%
+        to top,
+        rgba(8, 8, 6, 0.90) 0%,
+        rgba(8, 8, 6, 0.18) 34%,
+        transparent 55%
       );
     }
 
@@ -270,8 +280,10 @@
 
     <!-- ── Clock In ── -->
     <a href="./clockin/" class="card" id="clockin">
-      <!-- Slow office-stripe canvas rendered by script below -->
+      <!-- City parallax canvas rendered by script below -->
       <canvas class="card-cv" aria-hidden="true"></canvas>
+      <!-- Bus window frame sits between canvas and shade -->
+      <img class="bus-win" src="./clockin/assets/backgrounds/bus_window_overlay.png" aria-hidden="true">
       <div class="shade"></div>
       <div class="card-top">
         <span class="arrow">↗</span>
@@ -396,19 +408,31 @@ const rnd = (a, b) => a + Math.random() * (b - a);
 
 /* ═══════════════════════════════════════════════════
    Clock In card canvas
-   Slowly scrolling horizontal bands — venetian blinds,
-   or the rhythm of a commute. Muted amber glow at center.
-   Conveys routine and the passage of time.
+   City parallax — same layers as the game's bus scene
+   (clockin/script.js), scaled to fit the hub card.
+   Layers 3→0 scroll at increasing speeds. The sky
+   color and yOffset match the full Clock In page.
 ═══════════════════════════════════════════════════ */
 (function () {
   const card = document.getElementById('clockin');
   const cv   = card.querySelector('.card-cv');
   const ctx  = cv.getContext('2d');
 
-  let W, H, scrollY = 0, last = 0;
-  const BAND = 28;   /* stripe height px — adjust for wider/narrower bands */
-  const GAP  = 6;    /* gap between stripes */
-  const SPEED = 14;  /* px per second scroll rate */
+  const IMG_ASPECT = 1280 / 720;
+  const SKY        = '#8c9092'; /* --sky from clockin/styles.css */
+
+  /* Mirror of LAYERS in clockin/script.js */
+  const LAYERS = [
+    { src: './clockin/assets/backgrounds/cena2_back_3.png', speed: 18,  yOff: 220 },
+    { src: './clockin/assets/backgrounds/cena2_back_2.png', speed: 38,  yOff: 220 },
+    { src: './clockin/assets/backgrounds/cena2_back_1.png', speed: 68,  yOff: 220 },
+    { src: './clockin/assets/backgrounds/cena2_back_0.png', speed: 115, yOff: 0   },
+  ];
+
+  const imgs    = LAYERS.map(l => { const i = new Image(); i.src = l.src; return i; });
+  const offsets = LAYERS.map(() => 0);
+
+  let W, H, last = 0;
 
   function resize() {
     W = cv.width  = card.clientWidth;
@@ -419,28 +443,30 @@ const rnd = (a, b) => a + Math.random() * (b - a);
   new ResizeObserver(resize).observe(card);
 
   (function loop(ts) {
-    const dt = Math.min(ts - last, 50); last = ts;
+    const dt    = Math.min(ts - last, 50) / 1000; last = ts;
+    const tileW = IMG_ASPECT * H;
 
-    ctx.clearRect(0, 0, W, H);
-
-    /* Dark background */
-    ctx.fillStyle = '#0d0c0a';
+    /* Sky base — visible where layers don't reach */
+    ctx.fillStyle = SKY;
     ctx.fillRect(0, 0, W, H);
 
-    /* Scrolling horizontal bands — clock/venetian-blind rhythm */
-    scrollY = (scrollY + SPEED * dt / 1000) % (BAND + GAP);
+    for (let i = 0; i < LAYERS.length; i++) {
+      const img = imgs[i];
+      if (!img.complete || !img.naturalWidth) continue;
 
-    ctx.fillStyle = 'rgba(30, 27, 20, 0.9)';
-    for (let y = -scrollY; y < H + BAND; y += BAND + GAP) {
-      ctx.fillRect(0, y, W, BAND);
+      offsets[i] = (offsets[i] + LAYERS[i].speed * dt) % tileW;
+
+      /* yOff shifts the image up: bottom of image lands at H - yOff */
+      const imgY = -LAYERS[i].yOff;
+
+      /* Tile horizontally to fill canvas width */
+      let x = -(offsets[i]);
+      if (x > 0) x -= tileW;
+      while (x < W) {
+        ctx.drawImage(img, x, imgY, tileW, H);
+        x += tileW;
+      }
     }
-
-    /* Very faint warm center glow — the only hint of life */
-    const grd = ctx.createRadialGradient(W * .5, H * .5, 0, W * .5, H * .5, Math.max(W, H) * .65);
-    grd.addColorStop(0, 'rgba(195, 160, 35, 0.07)');
-    grd.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, W, H);
 
     requestAnimationFrame(loop);
   })(0);
