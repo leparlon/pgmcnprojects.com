@@ -55,18 +55,19 @@
 
     /* ─────────────────────────────────────────
        Games grid
-       The 1px gap + background on the grid acts
-       as a thin divider line between the cards.
+       auto-fit lets it reflow as games are added:
+       2 games → 2 cols, 3 → 3, etc.
+       The 1px gap + background = thin divider line.
     ───────────────────────────────────────── */
     main {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1px;
       background: rgba(255, 255, 255, 0.045);
     }
 
     /* ─────────────────────────────────────────
-       Game cards
+       Game cards — shorter so more can fit
     ───────────────────────────────────────── */
     .card {
       position: relative;
@@ -75,7 +76,7 @@
       justify-content: space-between;
       text-decoration: none;
       overflow: hidden;
-      min-height: 480px;
+      min-height: 340px;
       transition: box-shadow 0.4s;
     }
 
@@ -212,10 +213,10 @@
     /* ─────────────────────────────────────────
        Responsive
     ───────────────────────────────────────── */
-    @media (max-width: 640px) {
+    @media (max-width: 560px) {
       main { grid-template-columns: 1fr; }
-      .card { min-height: 56vh; }
-      .meta h2 { font-size: 1.1rem; }
+      .card { min-height: 52vw; }
+      .meta h2 { font-size: 1.05rem; }
       .studio-tag { display: none; }
     }
   </style>
