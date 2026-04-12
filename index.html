@@ -1,14 +1,454 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PGMCN Projects — small games, strange ideas.">
   <title>PGMCN Projects</title>
+  <style>
+    /* ─────────────────────────────────────────
+       Reset & base
+    ───────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      background: #0c0f14;
+      color: #8a96a8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────────
+       Page — 3-row grid: header / cards / footer
+    ───────────────────────────────────────── */
+    .page {
+      min-height: 100dvh;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* ─────────────────────────────────────────
+       Header
+    ───────────────────────────────────────── */
+    header {
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .studio-name {
+      font-size: 0.80rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      color: #c0cad6;
+    }
+
+    .studio-tag {
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      color: #2e3d50;
+    }
+
+    /* ─────────────────────────────────────────
+       Games grid
+       The 1px gap + background on the grid acts
+       as a thin divider line between the cards.
+    ───────────────────────────────────────── */
+    main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    /* ─────────────────────────────────────────
+       Game cards
+    ───────────────────────────────────────── */
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      overflow: hidden;
+      min-height: 480px;
+      transition: box-shadow 0.4s;
+    }
+
+    /* Canvas is the card's entire background */
+    .card-cv {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Gradient shade: dark at bottom for text readability */
+    .shade {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* YATR: warm dark gradient */
+    #yatr .shade {
+      background: linear-gradient(
+        165deg,
+        rgba(14, 10, 6, 0.02) 0%,
+        rgba(14, 10, 6, 0.55) 58%,
+        rgba(14, 10, 6, 0.94) 100%
+      );
+    }
+
+    /* MPE: cool dark gradient */
+    #mpe .shade {
+      background: linear-gradient(
+        165deg,
+        rgba(6, 10, 18, 0.02) 0%,
+        rgba(6, 10, 18, 0.55) 58%,
+        rgba(6, 10, 18, 0.95) 100%
+      );
+    }
+
+    /* Top row: arrow link indicator */
+    .card-top {
+      position: relative;
+      z-index: 2;
+      padding: 20px 22px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .arrow {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.16);
+      display: block;
+      transition: transform 0.25s, color 0.25s;
+      line-height: 1;
+    }
+
+    .card:hover .arrow {
+      transform: translate(3px, -3px);
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    /* Bottom row: icon + title + description */
+    .card-bottom {
+      position: relative;
+      z-index: 2;
+      padding: 22px;
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    /* YATR icon: round-rect, warm shadow */
+    #yatr .icon {
+      border-radius: 13px;
+      box-shadow: 0 3px 20px rgba(182, 112, 10, 0.50);
+    }
+
+    /* MPE icon: circular, cool shadow */
+    #mpe .icon {
+      border-radius: 50%;
+      box-shadow: 0 3px 20px rgba(135, 175, 228, 0.38);
+    }
+
+    .meta h2 {
+      font-size: clamp(1.05rem, 2.1vw, 1.45rem);
+      font-weight: 400;
+      line-height: 1.22;
+      letter-spacing: 0.01em;
+      color: #dce4ee;
+      margin-bottom: 7px;
+    }
+
+    .meta p {
+      font-size: 0.68rem;
+      letter-spacing: 0.10em;
+      color: #485868;
+    }
+
+    /* ── Hover glows (inset box-shadow, game accent color) ── */
+    #yatr:hover { box-shadow: inset 0 0 90px -20px rgba(182, 112, 10, 0.28); }
+    #mpe:hover  { box-shadow: inset 0 0 90px -20px rgba(148, 192, 245, 0.16); }
+
+    /* ── Thin accent border on hover ── */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      pointer-events: none;
+      transition: border-color 0.32s;
+      z-index: 3;
+    }
+
+    #yatr:hover::after { border-color: rgba(182, 120, 18, 0.30); }
+    #mpe:hover::after  { border-color: rgba(165, 200, 240, 0.16); }
+
+    /* ─────────────────────────────────────────
+       Footer
+    ───────────────────────────────────────── */
+    footer {
+      padding: 18px 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      color: #253040;
+    }
+
+    /* ─────────────────────────────────────────
+       Responsive
+    ───────────────────────────────────────── */
+    @media (max-width: 640px) {
+      main { grid-template-columns: 1fr; }
+      .card { min-height: 56vh; }
+      .meta h2 { font-size: 1.1rem; }
+      .studio-tag { display: none; }
+    }
+  </style>
 </head>
 <body>
-  <h1>PGMCN Projects</h1>
-  <p>Indie game development projects.</p>
 
-  <h2>Yet Another Tiny Roguelike</h2>
-  <p>A minimal roguelike game for mobile.</p>
-  <a href="./yetanothertinyroguelike/index.html">Yet Another Tiny Roguelike</a>
+<div class="page">
+
+  <header>
+    <span class="studio-name">PGMCN</span>
+    <span class="studio-tag">small games · strange ideas</span>
+  </header>
+
+  <main>
+
+    <!-- ── Yet Another Tiny Roguelike ── -->
+    <a href="./yetanothertinyroguelike/" class="card" id="yatr">
+      <!-- Dungeon tile canvas rendered by script below -->
+      <canvas class="card-cv" aria-hidden="true"></canvas>
+      <div class="shade"></div>
+      <div class="card-top">
+        <span class="arrow">↗</span>
+      </div>
+      <div class="card-bottom">
+        <!-- swap icon path here if asset moves -->
+        <img src="./yetanothertinyroguelike/assets/icon_512.png" alt="" class="icon">
+        <div class="meta">
+          <h2>Yet Another<br>Tiny Roguelike</h2>
+          <p>Turn-based dungeon crawler · Android</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- ── My Pet Elegans ── -->
+    <a href="./mypetelegans/" class="card" id="mpe">
+      <!-- Neural filament canvas rendered by script below -->
+      <canvas class="card-cv" aria-hidden="true"></canvas>
+      <div class="shade"></div>
+      <div class="card-top">
+        <span class="arrow">↗</span>
+      </div>
+      <div class="card-bottom">
+        <!-- swap icon path here if asset moves -->
+        <img src="./mypetelegans/assets/icon_512.png" alt="" class="icon">
+        <div class="meta">
+          <h2>My Pet<br>Elegans</h2>
+          <p>Connectome simulation · Android</p>
+        </div>
+      </div>
+    </a>
+
+  </main>
+
+  <footer>
+    <span>© 2026 PGMCN Projects</span>
+  </footer>
+
+</div>
+
+<script>
+'use strict';
+
+const TWO_PI = Math.PI * 2;
+const rnd = (a, b) => a + Math.random() * (b - a);
+
+/* ═══════════════════════════════════════════════════
+   YATR card canvas
+   Animated dungeon floor tiles scrolling slowly,
+   with random golden cells that pulse and fade —
+   like torchlight hitting wet stone.
+═══════════════════════════════════════════════════ */
+(function () {
+  const card = document.getElementById('yatr');
+  const cv   = card.querySelector('.card-cv');
+  const ctx  = cv.getContext('2d');
+  const T    = 36; /* tile size in px — adjust for denser/sparser grid */
+
+  let W, H, cols, rows, offset = 0, last = 0;
+  const glows = []; /* active glowing tiles */
+
+  function resize() {
+    W = cv.width  = card.clientWidth;
+    H = cv.height = card.clientHeight;
+    cols = Math.ceil(W / T) + 2;
+    rows = Math.ceil(H / T) + 2;
+  }
+
+  /* Spawn a new glowing tile at a random grid position */
+  setInterval(() => {
+    if (!cols || glows.length > 10) return;
+    glows.push({
+      col:   Math.floor(rnd(0, cols)),
+      row:   Math.floor(rnd(0, rows)),
+      alpha: 0,
+      dir:   1,
+    });
+  }, 520);
+
+  resize();
+  new ResizeObserver(resize).observe(card);
+
+  (function loop(ts) {
+    const dt = Math.min(ts - last, 50); last = ts;
+    ctx.clearRect(0, 0, W, H);
+
+    /* Scroll offset — tiles drift slowly diagonally */
+    offset = (offset + dt * 0.005) % T;
+
+    /* Draw floor tiles */
+    ctx.fillStyle = '#110e09';
+    for (let x = 0; x < cols; x++) {
+      for (let y = 0; y < rows; y++) {
+        ctx.fillRect(x * T - offset + 1, y * T - offset + 1, T - 2, T - 2);
+      }
+    }
+
+    /* Warm radial bloom at center — simulates torch glow */
+    const bloom = ctx.createRadialGradient(W * .5, H * .5, 0, W * .5, H * .5, Math.max(W, H) * .70);
+    bloom.addColorStop(0, 'rgba(188, 118, 10, 0.10)');
+    bloom.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = bloom;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Pulsing golden tiles */
+    for (let i = glows.length - 1; i >= 0; i--) {
+      const g = glows[i];
+      g.alpha += dt * 0.0013 * g.dir;
+      if (g.alpha >= 1) { g.alpha = 1; g.dir = -1; }
+      if (g.alpha <= 0) { glows.splice(i, 1); continue; }
+      ctx.save();
+      ctx.globalAlpha = g.alpha * 0.26;
+      ctx.fillStyle = '#c08020';
+      ctx.fillRect(g.col * T - offset + 1, g.row * T - offset + 1, T - 2, T - 2);
+      ctx.restore();
+    }
+
+    requestAnimationFrame(loop);
+  })(0);
+})();
+
+
+/* ═══════════════════════════════════════════════════
+   MPE card canvas
+   Drifting neural filament nodes connected by
+   gently bowed arcs — the same visual language as
+   the game's main menu and the neural linework in
+   the feature graphic.
+═══════════════════════════════════════════════════ */
+(function () {
+  const card  = document.getElementById('mpe');
+  const cv    = card.querySelector('.card-cv');
+  const ctx   = cv.getContext('2d');
+  const COUNT = 20;  /* number of nodes */
+  const CDIST = 165; /* px — max distance for a connection */
+
+  let W, H;
+  const nodes = [];
+
+  function makeNode() {
+    return {
+      x:  rnd(0, W || card.clientWidth),
+      y:  rnd(0, H || card.clientHeight),
+      vx: rnd(-0.11, 0.11),
+      vy: rnd(-0.11, 0.11),
+      r:  rnd(1.5, 3.4),
+      ph: rnd(0, TWO_PI),
+    };
+  }
+
+  function resize() {
+    W = cv.width  = card.clientWidth;
+    H = cv.height = card.clientHeight;
+  }
+
+  for (let i = 0; i < COUNT; i++) nodes.push(makeNode());
+
+  resize();
+  new ResizeObserver(resize).observe(card);
+
+  (function loop() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* Soft center glow — petri dish hint */
+    const glow = ctx.createRadialGradient(W * .5, H * .5, 0, W * .5, H * .5, Math.min(W, H) * .58);
+    glow.addColorStop(0, 'rgba(172, 204, 245, 0.05)');
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Update node positions */
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy; n.ph += 0.007;
+      if (n.x < 0) { n.x = 0; n.vx *= -1; }
+      if (n.x > W) { n.x = W; n.vx *= -1; }
+      if (n.y < 0) { n.y = 0; n.vy *= -1; }
+      if (n.y > H) { n.y = H; n.vy *= -1; }
+    }
+
+    /* Draw connections as slightly bowed arcs */
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        if (d > CDIST) continue;
+
+        const al  = (1 - d / CDIST) * 0.17;
+        const mx  = (a.x + b.x) * .5, my = (a.y + b.y) * .5;
+        const pr  = Math.atan2(dy, dx) + Math.PI * .5;
+        const bow = Math.sin(a.ph - b.ph) * 20;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.quadraticCurveTo(mx + Math.cos(pr) * bow, my + Math.sin(pr) * bow, b.x, b.y);
+        ctx.strokeStyle = `rgba(192, 214, 242, ${al})`;
+        ctx.lineWidth   = 0.75;
+        ctx.stroke();
+      }
+    }
+
+    /* Draw nodes with subtle pulse */
+    for (const n of nodes) {
+      const pulse = 0.30 + 0.20 * Math.sin(n.ph);
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, TWO_PI);
+      ctx.fillStyle = `rgba(205, 222, 245, ${pulse})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+
 </body>
 </html>
