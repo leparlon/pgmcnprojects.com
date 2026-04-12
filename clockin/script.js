@@ -26,21 +26,21 @@
    Speeds are in px/s at the source image height (720px).
    They scale proportionally with actual viewport height.
 
-   yOffset — vertical position tweak per layer, in px.
-     0   = anchored to bottom (default)
-     +50 = image shifts UP by 50px   (buildings rise)
-     -50 = image shifts DOWN by 50px (buildings sink, may crop)
+   yOffset — vertical position tweak per layer, as a fraction of viewport height.
+     0     = anchored to bottom (default)
+     0.306 = image shifts UP by ~30.6 % of viewport height
+     (220px at 720px source height → 220/720 ≈ 0.306)
 ───────────────────────────────────────── */
 const LAYERS = [
-  { el: document.getElementById('l3'), speed: 18,  yOffset: 220 }, /* furthest, slowest */
-  { el: document.getElementById('l2'), speed: 38,  yOffset: 220 },
-  { el: document.getElementById('l1'), speed: 68,  yOffset: 220 },
-  { el: document.getElementById('l0'), speed: 115, yOffset: 0 }, /* closest,  fastest */
+  { el: document.getElementById('l3'), speed: 18,  yOffset: 0.306 }, /* furthest, slowest */
+  { el: document.getElementById('l2'), speed: 38,  yOffset: 0.306 },
+  { el: document.getElementById('l1'), speed: 68,  yOffset: 0.306 },
+  { el: document.getElementById('l0'), speed: 115, yOffset: 0     }, /* closest,  fastest */
 ];
 
 /* Apply Y offsets once — edit the yOffset values above to reposition each layer */
 for (const layer of LAYERS) {
-  layer.el.style.backgroundPositionY = `bottom ${layer.yOffset}px`;
+  layer.el.style.backgroundPositionY = `bottom ${(layer.yOffset * 100).toFixed(1)}vh`;
 }
 
 const IMG_ASPECT = 1280 / 720; /* source image aspect ratio */

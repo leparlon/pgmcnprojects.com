@@ -421,12 +421,12 @@ const rnd = (a, b) => a + Math.random() * (b - a);
   const IMG_ASPECT = 1280 / 720;
   const SKY        = '#8c9092'; /* --sky from clockin/styles.css */
 
-  /* Mirror of LAYERS in clockin/script.js */
+  /* Mirror of LAYERS in clockin/script.js — yOff is fraction of card height */
   const LAYERS = [
-    { src: './clockin/assets/backgrounds/cena2_back_3.png', speed: 18,  yOff: 220 },
-    { src: './clockin/assets/backgrounds/cena2_back_2.png', speed: 38,  yOff: 220 },
-    { src: './clockin/assets/backgrounds/cena2_back_1.png', speed: 68,  yOff: 220 },
-    { src: './clockin/assets/backgrounds/cena2_back_0.png', speed: 115, yOff: 0   },
+    { src: './clockin/assets/backgrounds/cena2_back_3.png', speed: 18,  yOff: 0.306 },
+    { src: './clockin/assets/backgrounds/cena2_back_2.png', speed: 38,  yOff: 0.306 },
+    { src: './clockin/assets/backgrounds/cena2_back_1.png', speed: 68,  yOff: 0.306 },
+    { src: './clockin/assets/backgrounds/cena2_back_0.png', speed: 115, yOff: 0     },
   ];
 
   const imgs    = LAYERS.map(l => { const i = new Image(); i.src = l.src; return i; });
@@ -456,8 +456,8 @@ const rnd = (a, b) => a + Math.random() * (b - a);
 
       offsets[i] = (offsets[i] + LAYERS[i].speed * dt) % tileW;
 
-      /* yOff shifts the image up: bottom of image lands at H - yOff */
-      const imgY = -LAYERS[i].yOff;
+      /* yOff (fraction of H) shifts the image up proportionally */
+      const imgY = -(LAYERS[i].yOff * H);
 
       /* Tile horizontally to fill canvas width */
       let x = -(offsets[i]);
