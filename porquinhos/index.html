@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Porquinhos — alimente os porquinhos com frutas e veja eles voarem com balões! Jogo casual para crianças no Android.">
+  <title>Porquinhos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --sky-top:  #60C8F0;
+      --sky-bot:  #B8ECFF;
+      --grass:    #6DC96D;
+      --pink:     #FF7BA8;
+      --pink-lt:  #FFB3CC;
+      --yellow:   #FFD95A;
+      --text:     #2D1812;
+      --text-mid: #7A4A2A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--sky-top);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── Sticky canvas background ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* ─────────────── HERO ─────────────── */
+    #hero {
+      min-height: 100dvh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 40px 24px 0;
+      text-align: center;
+    }
+
+    .game-logo {
+      width: min(420px, 85vw);
+      filter: drop-shadow(0 6px 20px rgba(0,0,0,0.25));
+      margin-bottom: 12px;
+    }
+
+    .tagline {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      color: #fff;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.30);
+      line-height: 1.35;
+      margin-bottom: 28px;
+    }
+
+    .btn-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--text);
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      padding: 14px 30px;
+      border-radius: 60px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.22), 0 0 0 4px rgba(255,255,255,0.25);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+
+    .btn-play:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.28), 0 0 0 4px rgba(255,255,255,0.30);
+    }
+
+    .btn-play svg { width: 26px; height: 26px; flex-shrink: 0; }
+
+    /* Hero canvas with pigs + fruits */
+    #hero-canvas {
+      display: block;
+      width: 100%;
+      max-width: 560px;
+      height: 220px;
+      margin-top: 10px;
+    }
+
+    /* ─────────────── FEATURES ─────────────── */
+    #features {
+      padding: 60px 24px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+      color: #fff;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.22);
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(8px);
+      border-radius: 22px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      border: 2px solid rgba(255,255,255,0.95);
+    }
+
+    .feature-emoji {
+      font-size: 2.6rem;
+      display: block;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .feature-card h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.22rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    /* ─────────────── SCREENSHOT ─────────────── */
+    #screenshot {
+      padding: 0 24px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .feature-img {
+      width: min(600px, 100%);
+      border-radius: 22px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.28);
+      border: 4px solid rgba(255,255,255,0.70);
+    }
+
+    /* ─────────────── CTA ─────────────── */
+    #cta {
+      padding: 10px 24px 70px;
+      text-align: center;
+    }
+
+    #cta .btn-play {
+      font-size: 1.3rem;
+      padding: 18px 40px;
+      background: var(--yellow);
+    }
+
+    /* ─────────────── FOOTER ─────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 22px 24px;
+      text-align: center;
+      background: rgba(0,0,0,0.18);
+      border-top: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    footer a, footer span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.60);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #fff; }
+    footer .sep { color: rgba(255,255,255,0.25); }
+
+    @media (max-width: 480px) {
+      #hero-canvas { height: 170px; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sky + clouds background canvas (full page, fixed) -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <img src="assets/logo.png" alt="Porquinhos" class="game-logo">
+    <p class="tagline">Alimente os porquinhos<br>e faça eles voarem! 🎈</p>
+    <a href="https://play.google.com/store/apps/details?id=com.pcgn.porquinhos"
+       class="btn-play" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/>
+      </svg>
+      Disponível no Google Play
+    </a>
+    <!-- Animated pigs + fruits -->
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  </section>
+
+  <!-- ═══ FEATURES ═══ -->
+  <section id="features">
+    <h2 class="section-title">Como jogar?</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-emoji">🍎</span>
+        <h3>Frutas caindo!</h3>
+        <p>Segure as frutas e leve para os porquinhos antes que caiam no chão.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-emoji">🐷</span>
+        <h3>5 porquinhos famintos</h3>
+        <p>Cada porquinho precisa comer 3 frutas para crescer e ficar feliz!</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-emoji">🎈</span>
+        <h3>Voem alto!</h3>
+        <p>Alimente todos os porquinhos e veja eles subirem com seus balões!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCREENSHOT ═══ -->
+  <section id="screenshot">
+    <img src="assets/feature_graphic_1024x500.jpg"
+         alt="Porquinhos — tela do jogo"
+         class="feature-img">
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section id="cta">
+    <a href="https://play.google.com/store/apps/details?id=com.pcgn.porquinhos"
+       class="btn-play" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/>
+      </svg>
+      Baixar grátis no Google Play
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <a href="https://play.google.com/store/apps/details?id=com.pcgn.porquinhos" target="_blank" rel="noopener">Google Play</a>
+    <span class="sep">·</span>
+    <a href="privacy.html">Política de Privacidade</a>
+    <span class="sep">·</span>
+    <span>© 2026 PGMCN Projects</span>
+  </footer>
+
+</main>
+
+<script>
+'use strict';
+
+const PI2 = Math.PI * 2;
+const rnd = (a, b) => a + Math.random() * (b - a);
+const rndInt = (a, b) => Math.floor(rnd(a, b));
+
+/* ═══════════════════════════════════════════════════
+   BG CANVAS — fixed sky with drifting clouds and sun
+═══════════════════════════════════════════════════ */
+(function () {
+  const cv  = document.getElementById('bg-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H;
+
+  const clouds = Array.from({ length: 7 }, () => ({
+    x:  rnd(0, 1),
+    y:  rnd(0.03, 0.38),
+    sz: rnd(0.06, 0.13),
+    sp: rnd(0.000025, 0.00007),
+  }));
+
+  function resize() {
+    W = cv.width  = innerWidth;
+    H = cv.height = innerHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  function drawCloud(x, y, r) {
+    ctx.save();
+    ctx.fillStyle = 'rgba(255,255,255,0.82)';
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, PI2);
+    ctx.arc(x + r * 0.85, y - r * 0.3, r * 0.72, 0, PI2);
+    ctx.arc(x - r * 0.75, y - r * 0.2, r * 0.60, 0, PI2);
+    ctx.arc(x + r * 1.55, y + r * 0.10, r * 0.52, 0, PI2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function loop(ts) {
+    /* Sky gradient */
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0,    '#47B8E8');
+    sky.addColorStop(0.58, '#9DDDFF');
+    sky.addColorStop(0.82, '#C8F0FF');
+    sky.addColorStop(1,    '#6DC96D');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Sun */
+    const sx = W * 0.85, sy = H * 0.11, sr = Math.min(W, H) * 0.055;
+    const sunGlow = ctx.createRadialGradient(sx, sy, 0, sx, sy, sr * 2.5);
+    sunGlow.addColorStop(0,   'rgba(255, 240, 100, 0.55)');
+    sunGlow.addColorStop(0.4, 'rgba(255, 230, 50,  0.18)');
+    sunGlow.addColorStop(1,   'rgba(255,230,50,0)');
+    ctx.fillStyle = sunGlow;
+    ctx.fillRect(sx - sr * 3, sy - sr * 3, sr * 6, sr * 6);
+
+    ctx.fillStyle = '#FFE040';
+    ctx.beginPath();
+    ctx.arc(sx, sy, sr, 0, PI2);
+    ctx.fill();
+
+    /* Clouds drift */
+    for (const c of clouds) {
+      c.x += c.sp;
+      if (c.x - c.sz > 1.2) c.x = -c.sz - 0.2;
+      drawCloud(c.x * W, c.y * H, c.sz * Math.min(W, H));
+    }
+
+    /* Grass strip at bottom */
+    const gY = H * 0.88;
+    const grass = ctx.createLinearGradient(0, gY, 0, H);
+    grass.addColorStop(0, '#7EDD7E');
+    grass.addColorStop(1, '#4AAA4A');
+    ctx.fillStyle = grass;
+    ctx.beginPath();
+    ctx.roundRect(0, gY, W, H - gY, [12, 12, 0, 0]);
+    ctx.fill();
+
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+})();
+
+
+/* ═══════════════════════════════════════════════════
+   HERO CANVAS — pigs in a row + fruits falling
+   Loads real game sprites when available.
+═══════════════════════════════════════════════════ */
+(function () {
+  const cv  = document.getElementById('hero-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H, last = 0;
+
+  /* Load pig sprites */
+  const pigImgs = Array.from({ length: 5 }, (_, i) => {
+    const img = new Image();
+    img.src = `sprites/porquinho_${i}.png`;
+    return img;
+  });
+
+  /* Load fruit sprites */
+  const NFRUITS = 8;
+  const fruitImgs = Array.from({ length: NFRUITS }, (_, i) => {
+    const img = new Image();
+    img.src = `sprites/block_0${i}.png`;
+    return img;
+  });
+
+  /* Balloon sprite */
+  const balaoImg = new Image();
+  balaoImg.src = 'sprites/balao.png';
+
+  /* Pig state */
+  const NPIGS = 5;
+  const pigs = Array.from({ length: NPIGS }, (_, i) => ({
+    slot: i,
+    phase: rnd(0, PI2),
+    bobAmp: rnd(4, 8),
+    fed: 0,         /* 0-3 fruits eaten */
+    flyY: null,     /* null = grounded, number = flying up */
+    flyAlpha: 1,
+  }));
+
+  /* Falling fruits */
+  const fruits = [];
+  let spawnTimer = 0;
+
+  function spawnFruit() {
+    fruits.push({
+      x:     rnd(0.05, 0.95),
+      vy:    rnd(0.00025, 0.00050),
+      y:     -0.08,
+      img:   fruitImgs[rndInt(0, NFRUITS)],
+      rot:   rnd(0, PI2),
+      rotSp: rnd(-0.022, 0.022),
+      size:  rnd(0.07, 0.10),
+    });
+  }
+
+  function resize() {
+    const parent = cv.parentElement;
+    W = cv.width  = parent ? parent.clientWidth : 560;
+    H = cv.height = parseInt(cv.style.height || '220');
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  function loop(ts) {
+    const dt = Math.min(ts - last, 50); last = ts;
+    ctx.clearRect(0, 0, W, H);
+
+    /* Pig size & base Y */
+    const pigSz = Math.min(W / NPIGS * 0.70, H * 0.50);
+    const baseY = H * 0.78;
+    const spacing = W / NPIGS;
+
+    /* Spawn fruits */
+    spawnTimer += dt;
+    if (spawnTimer > 1100 && fruits.length < 6) {
+      spawnFruit();
+      spawnTimer = 0;
+    }
+
+    /* Update fruits */
+    for (let i = fruits.length - 1; i >= 0; i--) {
+      const f = fruits[i];
+      f.y   += f.vy * dt;
+      f.rot += f.rotSp;
+
+      /* Check collision with grounded pigs */
+      const fxPx = f.x * W;
+      const fyPx = f.y * H;
+      let eaten = false;
+
+      for (const p of pigs) {
+        if (p.flyY !== null) continue; /* pig already flying */
+        const px = (p.slot + 0.5) * spacing;
+        const py = baseY + Math.sin(p.phase) * p.bobAmp;
+        const dist = Math.hypot(fxPx - px, fyPx - (py - pigSz * 0.3));
+        if (dist < pigSz * 0.6) {
+          p.fed++;
+          if (p.fed >= 3) p.flyY = py; /* start flying */
+          fruits.splice(i, 1);
+          eaten = true;
+          break;
+        }
+      }
+
+      if (!eaten && f.y > 1.05) fruits.splice(i, 1);
+    }
+
+    /* Draw fruits */
+    for (const f of fruits) {
+      const fx = f.x * W;
+      const fy = f.y * H;
+      const sz = f.size * Math.min(W, H);
+      if (f.img.complete && f.img.naturalWidth) {
+        ctx.save();
+        ctx.translate(fx, fy);
+        ctx.rotate(f.rot);
+        ctx.drawImage(f.img, -sz / 2, -sz / 2, sz, sz);
+        ctx.restore();
+      } else {
+        ctx.fillStyle = '#FF6633';
+        ctx.beginPath();
+        ctx.arc(fx, fy, sz / 2, 0, PI2);
+        ctx.fill();
+      }
+    }
+
+    /* Draw pigs */
+    for (const p of pigs) {
+      p.phase += dt * 0.0028;
+      const px = (p.slot + 0.5) * spacing;
+
+      if (p.flyY !== null) {
+        /* Pig is flying up with balloon */
+        p.flyY  -= dt * 0.10;
+        p.flyAlpha = Math.max(0, p.flyAlpha - dt * 0.0006);
+        if (p.flyY < -H * 0.2) continue;
+
+        ctx.globalAlpha = p.flyAlpha;
+
+        /* Draw balloon above pig */
+        if (balaoImg.complete && balaoImg.naturalWidth) {
+          const bSz = pigSz * 0.7;
+          ctx.drawImage(balaoImg, px - bSz * 0.5, p.flyY - pigSz * 0.9 - bSz, bSz, bSz);
+        }
+
+        const pidx = Math.min(p.fed - 1, 4);
+        const img  = pigImgs[pidx];
+        if (img.complete && img.naturalWidth) {
+          ctx.save();
+          ctx.translate(px, p.flyY - pigSz / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.drawImage(img, -pigSz / 2, -pigSz / 2, pigSz, pigSz);
+          ctx.restore();
+        }
+        ctx.globalAlpha = 1;
+      } else {
+        const py = baseY + Math.sin(p.phase) * p.bobAmp;
+        const pidx = Math.min(p.fed, 4);
+        const img  = pigImgs[pidx];
+        if (img.complete && img.naturalWidth) {
+          ctx.save();
+          ctx.translate(px, py - pigSz / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.drawImage(img, -pigSz / 2, -pigSz / 2, pigSz, pigSz);
+          ctx.restore();
+        }
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+})();
+</script>
+
+</body>
+</html>

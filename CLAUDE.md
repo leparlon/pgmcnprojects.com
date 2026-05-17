@@ -63,6 +63,7 @@ As páginas não seguem um template único — cada jogo tem seu próprio estilo
 |------|-------|--------|--------|
 | Yet Another Tiny Roguelike | `yetanothertinyroguelike/` | `com.pgcn.yetanotherminirl` | Publicado |
 | My Pet Elegans | `mypetelegans/` | `com.pgcn.petworm` | Publicado |
+| Porquinhos | `porquinhos/` | `com.pcgn.porquinhos` | Em breve |
 
 ## Contato / Autor
 
