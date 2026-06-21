@@ -4,263 +4,167 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Human OmegaPoster</title>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: #0d1117;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: #c9d1d9;
-    }
-
-    .page {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 50px 24px 80px;
-    }
-
-    .page-header {
-      margin-bottom: 40px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid #21262d;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.70rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #58a6ff;
-      background: rgba(88, 166, 255, 0.10);
-      border: 1px solid rgba(88, 166, 255, 0.25);
-      border-radius: 20px;
-      padding: 3px 10px;
-      margin-bottom: 14px;
-    }
-
-    .page-title {
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
-      font-weight: 700;
-      color: #f0f6fc;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .page-date {
-      font-size: 0.80rem;
-      color: #6e7681;
-    }
-
-    .section {
-      background: #161b22;
-      border: 1px solid #21262d;
-      border-radius: 10px;
-      padding: 26px 24px;
-      margin-bottom: 12px;
-    }
-
-    .section h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #21262d;
-    }
-
-    .section p {
-      font-size: 0.88rem;
-      color: #8b949e;
-      line-height: 1.75;
-      margin-bottom: 10px;
-    }
-    .section p:last-child { margin-bottom: 0; }
-
-    .section ul {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 8px;
-    }
-    .section ul li {
-      font-size: 0.87rem;
-      color: #8b949e;
-      line-height: 1.75;
-      padding-left: 18px;
-      position: relative;
-      margin-bottom: 4px;
-    }
-    .section ul li::before {
-      content: '·';
-      position: absolute;
-      left: 6px;
-      color: #58a6ff;
-      font-weight: 700;
-    }
-
-    .doc-nav {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-    .doc-nav a {
-      font-size: 0.80rem;
-      font-weight: 600;
-      color: #8b949e;
-      text-decoration: none;
-      padding: 5px 12px;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .doc-nav a:hover { color: #f0f6fc; border-color: #58a6ff; }
-    .doc-nav a.active { color: #f0f6fc; border-color: #58a6ff; background: rgba(88,166,255,0.07); }
-
-    a { color: #58a6ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    footer {
-      margin-top: 44px;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #484f58;
-    }
-  </style>
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0e13'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%233ecfcf'>Ω</text></svg>">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="page">
-
-  <header class="page-header">
-    <div class="badge">Human OmegaPoster</div>
-    <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-date">Last updated: June 2026</p>
-  </header>
-
-  <nav class="doc-nav">
-    <a href="terms.html">Terms of Service</a>
-    <a href="privacy.html" class="active">Privacy Policy</a>
-  </nav>
-
-  <div class="section">
-    <h2>Overview</h2>
-    <p>
-      Human OmegaPoster ("we", "our", or "the platform") is a content publishing and automation
-      tool designed to help creators manage and distribute their original content across multiple
-      social media platforms.
-    </p>
+<header>
+  <div class="container">
+    <span class="site-name"><a href="index.html" style="color:inherit;text-decoration:none">Human<span>Omega</span>Poster</a></span>
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="privacy.html" class="active">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
   </div>
+</header>
 
-  <div class="section">
-    <h2>Information We Collect</h2>
-    <p>When you connect a social media account, we may store:</p>
-    <ul>
-      <li>Account identifiers provided through OAuth authentication.</li>
-      <li>Access tokens and refresh tokens required to interact with supported platforms.</li>
-      <li>Basic profile information made available by the platform.</li>
-      <li>Content metadata related to uploaded videos and posts.</li>
-      <li>Performance metrics and analytics data provided by supported platforms.</li>
-    </ul>
-    <p>Human OmegaPoster does not collect passwords for third-party platforms.</p>
+<main>
+  <div class="page-wrap">
+    <div class="container">
+
+      <div class="page-header">
+        <p class="page-badge">Human OmegaPoster</p>
+        <h1>Privacy Policy</h1>
+        <p class="page-date">Last updated: June 2026</p>
+      </div>
+
+      <nav class="doc-nav">
+        <a href="privacy.html" class="active">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+
+      <div class="section">
+        <h2>Overview</h2>
+        <p>
+          Human OmegaPoster ("we", "our", or "the platform") is a content publishing and automation
+          tool designed to help creators manage and distribute their original content across multiple
+          social media platforms.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Information We Collect</h2>
+        <p>When you connect a social media account, we may store:</p>
+        <ul>
+          <li>Account identifiers provided through OAuth authentication.</li>
+          <li>Access tokens and refresh tokens required to interact with supported platforms.</li>
+          <li>Basic profile information made available by the platform.</li>
+          <li>Content metadata related to uploaded videos and posts.</li>
+          <li>Performance metrics and analytics data provided by supported platforms.</li>
+        </ul>
+        <p>Human OmegaPoster does not collect passwords for third-party platforms.</p>
+      </div>
+
+      <div class="section">
+        <h2>How We Use Information</h2>
+        <p>We use the collected information solely to:</p>
+        <ul>
+          <li>Authenticate connected accounts.</li>
+          <li>Upload and manage content on behalf of the user.</li>
+          <li>Retrieve analytics and performance information.</li>
+          <li>Improve the publishing workflow and user experience.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Content Ownership</h2>
+        <p>
+          All uploaded content remains the property of the creator. Human OmegaPoster does not
+          claim ownership of any user-generated content.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Sharing of Information</h2>
+        <p>
+          Human OmegaPoster does not sell, rent, or share personal information with third parties,
+          except when required to provide functionality through connected platform APIs or when
+          required by law.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Data Storage</h2>
+        <p>
+          Authentication tokens and related metadata are stored securely and are used only to
+          provide the requested publishing and analytics functionality.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Third-Party Services</h2>
+        <p>Human OmegaPoster integrates with third-party services, including but not limited to:</p>
+        <ul>
+          <li>TikTok</li>
+          <li>Instagram</li>
+          <li>YouTube</li>
+        </ul>
+        <p>
+          Use of these services is subject to their respective privacy policies and terms of service.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Data Deletion</h2>
+        <p>
+          Users may revoke access to their connected accounts at any time through the corresponding
+          platform settings. Upon request, stored account information and tokens may be deleted.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Security</h2>
+        <p>
+          Reasonable measures are taken to protect stored information and prevent unauthorized access.
+          However, no method of electronic storage or transmission over the Internet can guarantee
+          absolute security.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Children's Privacy</h2>
+        <p>
+          Human OmegaPoster is not intended for children under the age of 13 and does not knowingly
+          collect personal information from children.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Changes to This Policy</h2>
+        <p>
+          This Privacy Policy may be updated from time to time. Any changes will be reflected on
+          this page together with an updated revision date.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Contact</h2>
+        <p>
+          For questions regarding this Privacy Policy, please contact:<br><br>
+          <a href="mailto:leparlonholanda@gmail.com">leparlonholanda@gmail.com</a>
+        </p>
+      </div>
+
+    </div>
   </div>
+</main>
 
-  <div class="section">
-    <h2>How We Use Information</h2>
-    <p>We use the collected information solely to:</p>
-    <ul>
-      <li>Authenticate connected accounts.</li>
-      <li>Upload and manage content on behalf of the user.</li>
-      <li>Retrieve analytics and performance information.</li>
-      <li>Improve the publishing workflow and user experience.</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Content Ownership</h2>
-    <p>
-      All uploaded content remains the property of the creator. Human OmegaPoster does not
-      claim ownership of any user-generated content.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Sharing of Information</h2>
-    <p>
-      Human OmegaPoster does not sell, rent, or share personal information with third parties,
-      except when required to provide functionality through connected platform APIs or when
-      required by law.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Data Storage</h2>
-    <p>
-      Authentication tokens and related metadata are stored securely and are used only to
-      provide the requested publishing and analytics functionality.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Third-Party Services</h2>
-    <p>Human OmegaPoster integrates with third-party services, including but not limited to:</p>
-    <ul>
-      <li>TikTok</li>
-      <li>Instagram</li>
-      <li>YouTube</li>
-    </ul>
-    <p>
-      Use of these services is subject to their respective privacy policies and terms of service.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Data Deletion</h2>
-    <p>
-      Users may revoke access to their connected accounts at any time through the corresponding
-      platform settings. Upon request, stored account information and tokens may be deleted.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Security</h2>
-    <p>
-      Reasonable measures are taken to protect stored information and prevent unauthorized access.
-      However, no method of electronic storage or transmission over the Internet can guarantee
-      absolute security.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Children's Privacy</h2>
-    <p>
-      Human OmegaPoster is not intended for children under the age of 13 and does not knowingly
-      collect personal information from children.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Changes to This Policy</h2>
-    <p>
-      This Privacy Policy may be updated from time to time. Any changes will be reflected on
-      this page together with an updated revision date.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Contact</h2>
-    <p>
-      For questions regarding this Privacy Policy, please contact:<br><br>
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
       <a href="mailto:leparlonholanda@gmail.com">leparlonholanda@gmail.com</a>
+    </div>
+    <p class="footer-meta">
+      Human OmegaPoster is an independent platform and is not affiliated with TikTok,
+      Instagram, YouTube or their parent companies.
     </p>
   </div>
-
-  <footer>
-    © 2026 PGMCN Projects &nbsp;·&nbsp; Human OmegaPoster
-  </footer>
-
-</div>
+</footer>
 
 </body>
 </html>

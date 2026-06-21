@@ -4,253 +4,157 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — Human OmegaPoster</title>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: #0d1117;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: #c9d1d9;
-    }
-
-    .page {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 50px 24px 80px;
-    }
-
-    .page-header {
-      margin-bottom: 40px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid #21262d;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.70rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #58a6ff;
-      background: rgba(88, 166, 255, 0.10);
-      border: 1px solid rgba(88, 166, 255, 0.25);
-      border-radius: 20px;
-      padding: 3px 10px;
-      margin-bottom: 14px;
-    }
-
-    .page-title {
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
-      font-weight: 700;
-      color: #f0f6fc;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .page-date {
-      font-size: 0.80rem;
-      color: #6e7681;
-    }
-
-    .section {
-      background: #161b22;
-      border: 1px solid #21262d;
-      border-radius: 10px;
-      padding: 26px 24px;
-      margin-bottom: 12px;
-    }
-
-    .section h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #f0f6fc;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #21262d;
-    }
-
-    .section p {
-      font-size: 0.88rem;
-      color: #8b949e;
-      line-height: 1.75;
-      margin-bottom: 10px;
-    }
-    .section p:last-child { margin-bottom: 0; }
-
-    .section ul {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 8px;
-    }
-    .section ul li {
-      font-size: 0.87rem;
-      color: #8b949e;
-      line-height: 1.75;
-      padding-left: 18px;
-      position: relative;
-      margin-bottom: 4px;
-    }
-    .section ul li::before {
-      content: '·';
-      position: absolute;
-      left: 6px;
-      color: #58a6ff;
-      font-weight: 700;
-    }
-
-    .doc-nav {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-    .doc-nav a {
-      font-size: 0.80rem;
-      font-weight: 600;
-      color: #8b949e;
-      text-decoration: none;
-      padding: 5px 12px;
-      border: 1px solid #21262d;
-      border-radius: 6px;
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .doc-nav a:hover { color: #f0f6fc; border-color: #58a6ff; }
-    .doc-nav a.active { color: #f0f6fc; border-color: #58a6ff; background: rgba(88,166,255,0.07); }
-
-    a { color: #58a6ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    footer {
-      margin-top: 44px;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #484f58;
-    }
-  </style>
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0e13'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%233ecfcf'>Ω</text></svg>">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="page">
-
-  <header class="page-header">
-    <div class="badge">Human OmegaPoster</div>
-    <h1 class="page-title">Terms of Service</h1>
-    <p class="page-date">Last updated: June 2026</p>
-  </header>
-
-  <nav class="doc-nav">
-    <a href="terms.html" class="active">Terms of Service</a>
-    <a href="privacy.html">Privacy Policy</a>
-  </nav>
-
-  <div class="section">
-    <h2>Welcome</h2>
-    <p>
-      Welcome to Human OmegaPoster. By using Human OmegaPoster ("the platform", "we", "our"),
-      you agree to these Terms of Service.
-    </p>
+<header>
+  <div class="container">
+    <span class="site-name"><a href="index.html" style="color:inherit;text-decoration:none">Human<span>Omega</span>Poster</a></span>
+    <nav class="top-nav">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html" class="active">Terms</a>
+    </nav>
   </div>
+</header>
 
-  <div class="section">
-    <h2>Purpose</h2>
-    <p>
-      Human OmegaPoster is a content publishing and automation platform that helps creators
-      manage and distribute their original content across multiple social media platforms.
-    </p>
+<main>
+  <div class="page-wrap">
+    <div class="container">
+
+      <div class="page-header">
+        <p class="page-badge">Human OmegaPoster</p>
+        <h1>Terms of Service</h1>
+        <p class="page-date">Last updated: June 2026</p>
+      </div>
+
+      <nav class="doc-nav">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html" class="active">Terms of Service</a>
+      </nav>
+
+      <div class="section">
+        <h2>Welcome</h2>
+        <p>
+          Welcome to Human OmegaPoster. By using Human OmegaPoster ("the platform", "we", "our"),
+          you agree to these Terms of Service.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Purpose</h2>
+        <p>
+          Human OmegaPoster is a content publishing and automation platform that helps creators
+          manage and distribute their original content across multiple social media platforms.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>User Responsibility</h2>
+        <p>Users are responsible for:</p>
+        <ul>
+          <li>Maintaining access to their connected accounts.</li>
+          <li>Ensuring that uploaded content complies with the terms and policies of the respective platforms.</li>
+          <li>Ensuring that they own or have the rights to publish the content they upload.</li>
+        </ul>
+        <p>Users must not use Human OmegaPoster to:</p>
+        <ul>
+          <li>Upload illegal or harmful content.</li>
+          <li>Infringe intellectual property rights.</li>
+          <li>Violate the terms of service of connected third-party platforms.</li>
+          <li>Attempt unauthorized access to systems or accounts.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Third-Party Services</h2>
+        <p>Human OmegaPoster integrates with third-party platforms, including but not limited to:</p>
+        <ul>
+          <li>TikTok</li>
+          <li>Instagram</li>
+          <li>YouTube</li>
+        </ul>
+        <p>Use of those services is subject to their own terms and policies.</p>
+        <p>
+          Human OmegaPoster is not affiliated with, endorsed by, or sponsored by TikTok, Instagram,
+          YouTube or their parent companies.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Content Ownership</h2>
+        <p>Users retain ownership of their content.</p>
+        <p>
+          Human OmegaPoster does not claim ownership of any user-generated content uploaded
+          through the platform.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Availability</h2>
+        <p>Human OmegaPoster is provided on an "as is" and "as available" basis.</p>
+        <p>
+          We do not guarantee uninterrupted availability, error-free operation, or compatibility
+          with changes introduced by third-party services.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Limitation of Liability</h2>
+        <p>To the maximum extent permitted by law, Human OmegaPoster shall not be liable for:</p>
+        <ul>
+          <li>Loss of content.</li>
+          <li>Loss of access to third-party accounts.</li>
+          <li>Service interruptions.</li>
+          <li>Indirect, incidental, or consequential damages arising from the use of the platform.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Termination</h2>
+        <p>
+          We reserve the right to suspend or terminate access to the platform in cases of abuse,
+          misuse, or violation of these Terms.
+        </p>
+        <p>Users may stop using the platform at any time.</p>
+      </div>
+
+      <div class="section">
+        <h2>Changes</h2>
+        <p>
+          These Terms of Service may be updated from time to time. Continued use of the platform
+          after changes constitutes acceptance of the revised Terms.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Contact</h2>
+        <p>
+          For questions regarding these Terms of Service, please contact:<br><br>
+          <a href="mailto:leparlonholanda@gmail.com">leparlonholanda@gmail.com</a>
+        </p>
+      </div>
+
+    </div>
   </div>
+</main>
 
-  <div class="section">
-    <h2>User Responsibility</h2>
-    <p>Users are responsible for:</p>
-    <ul>
-      <li>Maintaining access to their connected accounts.</li>
-      <li>Ensuring that uploaded content complies with the terms and policies of the respective platforms.</li>
-      <li>Ensuring that they own or have the rights to publish the content they upload.</li>
-    </ul>
-    <p>Users must not use Human OmegaPoster to:</p>
-    <ul>
-      <li>Upload illegal or harmful content.</li>
-      <li>Infringe intellectual property rights.</li>
-      <li>Violate the terms of service of connected third-party platforms.</li>
-      <li>Attempt unauthorized access to systems or accounts.</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Third-Party Services</h2>
-    <p>Human OmegaPoster integrates with third-party platforms, including but not limited to:</p>
-    <ul>
-      <li>TikTok</li>
-      <li>Instagram</li>
-      <li>YouTube</li>
-    </ul>
-    <p>Use of those services is subject to their own terms and policies.</p>
-    <p>
-      Human OmegaPoster is not affiliated with, endorsed by, or sponsored by TikTok, Instagram,
-      YouTube, or their parent companies.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Content Ownership</h2>
-    <p>Users retain ownership of their content.</p>
-    <p>
-      Human OmegaPoster does not claim ownership of any user-generated content uploaded
-      through the platform.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Availability</h2>
-    <p>Human OmegaPoster is provided on an "as is" and "as available" basis.</p>
-    <p>
-      We do not guarantee uninterrupted availability, error-free operation, or compatibility
-      with changes introduced by third-party services.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Limitation of Liability</h2>
-    <p>To the maximum extent permitted by law, Human OmegaPoster shall not be liable for:</p>
-    <ul>
-      <li>Loss of content.</li>
-      <li>Loss of access to third-party accounts.</li>
-      <li>Service interruptions.</li>
-      <li>Indirect, incidental, or consequential damages arising from the use of the platform.</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Termination</h2>
-    <p>
-      We reserve the right to suspend or terminate access to the platform in cases of abuse,
-      misuse, or violation of these Terms.
-    </p>
-    <p>Users may stop using the platform at any time.</p>
-  </div>
-
-  <div class="section">
-    <h2>Changes</h2>
-    <p>
-      These Terms of Service may be updated from time to time. Continued use of the platform
-      after changes constitutes acceptance of the revised Terms.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Contact</h2>
-    <p>
-      For questions regarding these Terms of Service, please contact:<br><br>
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
       <a href="mailto:leparlonholanda@gmail.com">leparlonholanda@gmail.com</a>
+    </div>
+    <p class="footer-meta">
+      Human OmegaPoster is an independent platform and is not affiliated with TikTok,
+      Instagram, YouTube or their parent companies.
     </p>
   </div>
-
-  <footer>
-    © 2026 PGMCN Projects &nbsp;·&nbsp; Human OmegaPoster
-  </footer>
-
-</div>
+</footer>
 
 </body>
 </html>
