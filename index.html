@@ -250,9 +250,24 @@
     footer {
       padding: 18px 28px;
       border-top: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       font-size: 0.66rem;
       letter-spacing: 0.08em;
       color: #253040;
+    }
+
+    footer a {
+      color: #253040;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #4a5a70;
     }
 
     /* ─────────────────────────────────────────
@@ -353,6 +368,7 @@
 
   <footer>
     <span>© 2026 PGMCN Projects</span>
+    <a href="./vertigo-loop/">Vertigo Loop</a>
   </footer>
 
 </div>

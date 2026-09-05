@@ -1,0 +1,5 @@
+# OAuth / Google Cloud credentials — never commit these
+client_secret*.json
+credentials.json
+token.json
+token_*.json
